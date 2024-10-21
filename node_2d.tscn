@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=122 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -858,9 +858,25 @@ tracks/0/keys = {
 "values": [Vector2(609.25, 544), Vector2(592, 704)]
 }
 
+[sub_resource type="Animation" id="Animation_tkjtu"]
+resource_name = "towards_UNK"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(609.25, 544), Vector2(610, 489)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3elwb"]
 _data = {
 "RESET": SubResource("Animation_kkv1h"),
+"towards_UNK": SubResource("Animation_tkjtu"),
 "towards_player": SubResource("Animation_rgqlw")
 }
 
@@ -986,6 +1002,7 @@ label_settings = SubResource("LabelSettings_hmxt1")
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("344_jjq0j")
+volume_db = -30.0
 
 [node name="DeckOfCards" type="Sprite2D" parent="."]
 position = Vector2(344, 536)
@@ -1056,6 +1073,7 @@ frame_progress = 1.0
 
 [node name="LifeLossSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("359_m7jgp")
+volume_db = -4.0
 
 [node name="UNKButton" type="TextureButton" parent="."]
 visible = false
@@ -1153,6 +1171,7 @@ speed_scale = 2.0
 
 [node name="poofSoundEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("61_iignn")
+volume_db = -4.0
 
 [node name="muzzleFlash" type="AnimatedSprite2D" parent="."]
 position = Vector2(784, 560)
@@ -1217,9 +1236,11 @@ label_settings = SubResource("LabelSettings_hmxt1")
 
 [node name="gunShot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("79_8663o")
+volume_db = -10.0
 
 [node name="emptyShot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("79_bjoek")
+volume_db = -4.0
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]

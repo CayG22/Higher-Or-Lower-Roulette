@@ -166,10 +166,14 @@ func start_phase_2(): #Starts 'round' for phase two, checks who gets to choose w
 			play_player_phase_2_animations() #Play player animations
 		else: #Incorrect
 			print("(INCORRECT)Unk's chooses who to shoot")
+			revolver_main_anim_player.play("towards_UNK")
+			await revolver_main_anim_player.animation_finished
 			unk_shoot_choice_outcome() 
 	else: #UNKS turn
 		if was_correct: #Correct
 			print("(CORRECT) Unk chooses who to shoot")
+			revolver_main_anim_player.play("towards_UNK")
+			await revolver_main_anim_player.animation_finished
 			unk_shoot_choice_outcome()
 		else: #Incorrect
 			print("(INCORRECT) Player chooses who to shoot")
@@ -253,42 +257,51 @@ func unk_card_decision() -> bool: #Returns true for higher, false for lower
 
 func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was wrong
 	var choice = unk_card_decision()
-	
+	var wait_time = get_tree().create_timer(3)
 	if (choice and opponent_card > player_card) or (not choice and opponent_card < player_card):
 		print("UNK was right")
+		await wait_time.timeout
 		_switch_to_phase_2()
 		was_correct = true
 	else:
 		print("UNK was wrong")
+		await wait_time.timeout
 		_switch_to_phase_2()
 		was_correct = false
 
 func unk_shoot_choice_outcome():
 	var shoot_player = unk_shoot_decision()
-	
+	var wait_time = get_tree().create_timer(3)
 	if shoot_player and bullet_arr[current_bullet_space] == 1:
+		print("UNK chooses to shoot player")
+		
 		current_bullet_space += 1 #Go to the next round in chamber
 		player_lives -= 1
 		_display_health()
 		gun_shot_sound.play()
+		await wait_time.timeout
 		if _check_player_lives(player_lives):
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
 			_game_over()
 	elif !shoot_player and bullet_arr[current_bullet_space] == 1:
+		print("UNK chooses to shoot himself")
 		current_bullet_space += 1 #Go to the next round in chamber
 		opp_lives -= 1
 		_display_health()
 		gun_shot_sound.play()
+		await wait_time.timeout
 		if _check_opp_lives(opp_lives):
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
 			_game_over()
 	else:
+		print("Will add this shooting outcomne later")
 		current_bullet_space += 1 #Go to the next round in chamber
 		empty_shot_sound.play()
+		await wait_time.timeout
 		_switch_to_phase_1()
 		start_phase_1()
 
@@ -381,6 +394,7 @@ func _switch_to_phase_2(): #Switches 'state' to phase 2
 		for i in range(150):
 			await get_tree().process_frame
 		switch_label_2.visible = false
+		#_switch_scene()
 		start_phase_2()
 	else: #Not the first switch
 		var wait_timer = get_tree().create_timer(1.0)
@@ -562,11 +576,17 @@ func play_player_phase_2_animations():
 	player_revolver.visible = true
 	player_revolver_static.visible = false
 
+func play_UNK_phase_2_animations():
+	revolver_main_anim_player.play("towards_UNK")
+	await revolver_main_anim_player.animation_finished
+
 func phase_1_sprite_changes():
 	#Make phase 2 sprites invisible
 	unk_button.visible = false
 	player_button.visible = false
 	revolver_sprite.visible = false
+	player_revolver_static.visible = false
+	player_revolver.visible = false
 	#Make Phase 1 sprites visible
 	deck_of_cards.visible = true
 	opponent_card_sprite.visible = true
