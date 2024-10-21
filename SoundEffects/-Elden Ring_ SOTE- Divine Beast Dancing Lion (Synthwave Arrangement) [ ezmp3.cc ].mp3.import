@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dvxes1cm8fmvf"
+path="res://.godot/imported/-Elden Ring_ SOTE- Divine Beast Dancing Lion (Synthwave Arrangement) [ ezmp3.cc ].mp3-8fc64750322a055d4b9c7a5d53387c85.mp3str"
+
+[deps]
+
+source_file="res://SoundEffects/-Elden Ring_ SOTE- Divine Beast Dancing Lion (Synthwave Arrangement) [ ezmp3.cc ].mp3"
+dest_files=["res://.godot/imported/-Elden Ring_ SOTE- Divine Beast Dancing Lion (Synthwave Arrangement) [ ezmp3.cc ].mp3-8fc64750322a055d4b9c7a5d53387c85.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

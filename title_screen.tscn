@@ -1,0 +1,246 @@
+[gd_scene load_steps=35 format=3 uid="uid://cwc0kfgl567dp"]
+
+[ext_resource type="FontFile" uid="uid://dothjl2nmh4jf" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/connection_ii/ConnectionII.otf" id="1_31no1"]
+[ext_resource type="Script" path="res://main.gd" id="1_c1xlg"]
+[ext_resource type="Texture2D" uid="uid://dnyoiscqx6mbt" path="res://emptyMenuButtons/Button Pack - ok_lavender/Individual Frames/[8] Wood/[1] Normal.png" id="2_erj4f"]
+[ext_resource type="Texture2D" uid="uid://s6id8w03nsrt" path="res://titleBackground/frame_00_delay-0.05s.png" id="2_jwh76"]
+[ext_resource type="Texture2D" uid="uid://dfq7b6aol6qd7" path="res://titleBackground/frame_01_delay-0.05s.png" id="3_afwkf"]
+[ext_resource type="Texture2D" uid="uid://ccc21ird0577b" path="res://emptyMenuButtons/Button Pack - ok_lavender/Individual Frames/[8] Wood/[2] Clicked.png" id="3_b7sjp"]
+[ext_resource type="Texture2D" uid="uid://d1nxvg26dh7en" path="res://emptyMenuButtons/Button Pack - ok_lavender/Individual Frames/[8] Wood/[3] Hover.png" id="4_58xw6"]
+[ext_resource type="Texture2D" uid="uid://b0oy0ru7hqbyr" path="res://titleBackground/frame_02_delay-0.05s.png" id="4_63av3"]
+[ext_resource type="Texture2D" uid="uid://bcdsbit8c3jxx" path="res://titleBackground/frame_03_delay-0.05s.png" id="5_ixp3k"]
+[ext_resource type="Texture2D" uid="uid://b3jvg4xitilb4" path="res://titleBackground/frame_04_delay-0.05s.png" id="6_wdvn8"]
+[ext_resource type="Texture2D" uid="uid://b1t7vkg7ynruq" path="res://titleBackground/frame_05_delay-0.05s.png" id="7_5qfbh"]
+[ext_resource type="Texture2D" uid="uid://bk0lryl8omrxb" path="res://titleBackground/frame_06_delay-0.05s.png" id="8_j4q24"]
+[ext_resource type="Texture2D" uid="uid://bh3s2jmgspnjw" path="res://titleBackground/frame_07_delay-0.05s.png" id="9_8f0mp"]
+[ext_resource type="Texture2D" uid="uid://bogss37dvypv8" path="res://titleBackground/frame_08_delay-0.05s.png" id="10_d0me5"]
+[ext_resource type="Texture2D" uid="uid://cspe5t1pu77xt" path="res://titleBackground/frame_09_delay-0.05s.png" id="11_rcksm"]
+[ext_resource type="Texture2D" uid="uid://d4h83ix3xpvpk" path="res://titleBackground/frame_10_delay-0.05s.png" id="12_462s8"]
+[ext_resource type="Texture2D" uid="uid://jm4fdetv2425" path="res://titleBackground/frame_11_delay-0.05s.png" id="13_jmbk2"]
+[ext_resource type="Texture2D" uid="uid://b6wcrm0iaocd8" path="res://titleBackground/frame_12_delay-0.05s.png" id="14_cx02l"]
+[ext_resource type="Texture2D" uid="uid://cek228qopsil5" path="res://titleBackground/frame_13_delay-0.05s.png" id="15_degrb"]
+[ext_resource type="Texture2D" uid="uid://82a38uqungor" path="res://titleBackground/frame_14_delay-0.05s.png" id="16_w81ac"]
+[ext_resource type="Texture2D" uid="uid://dsatftji3kwr3" path="res://titleBackground/frame_15_delay-0.05s.png" id="17_ol5d7"]
+[ext_resource type="Texture2D" uid="uid://c248y2dx6lxs1" path="res://titleBackground/frame_16_delay-0.05s.png" id="18_k5qal"]
+[ext_resource type="Texture2D" uid="uid://dkj1io1cswd18" path="res://titleBackground/frame_17_delay-0.05s.png" id="19_o4nob"]
+[ext_resource type="Texture2D" uid="uid://l274ul6lw2w0" path="res://titleBackground/frame_18_delay-0.05s.png" id="20_loqso"]
+[ext_resource type="Texture2D" uid="uid://boy85di5icbya" path="res://titleBackground/frame_19_delay-0.05s.png" id="21_c2n81"]
+[ext_resource type="Texture2D" uid="uid://b4cf141a2k7wq" path="res://titleBackground/frame_20_delay-0.05s.png" id="22_ni1oh"]
+[ext_resource type="Texture2D" uid="uid://c620lf8ov6k25" path="res://titleBackground/frame_21_delay-0.05s.png" id="23_oej5e"]
+[ext_resource type="Texture2D" uid="uid://ixalgqojnxua" path="res://titleBackground/frame_22_delay-0.05s.png" id="24_pd3tb"]
+[ext_resource type="AudioStream" uid="uid://dvxes1cm8fmvf" path="res://SoundEffects/-Elden Ring_ SOTE- Divine Beast Dancing Lion (Synthwave Arrangement) [ ezmp3.cc ].mp3" id="29_a5lcc"]
+[ext_resource type="AudioStream" uid="uid://bmt8uy7on6imw" path="res://SoundEffects/beam_sound-103367.mp3" id="30_sbqs5"]
+[ext_resource type="AudioStream" uid="uid://ctc7kvhp6aif8" path="res://SoundEffects/click-button-166324.mp3" id="31_pavca"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cboh1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jwh76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_afwkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_63av3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ixp3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wdvn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5qfbh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_j4q24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8f0mp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_d0me5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rcksm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_462s8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jmbk2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cx02l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_degrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_w81ac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ol5d7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_k5qal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_o4nob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_loqso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_c2n81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_ni1oh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_oej5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_pd3tb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y0wyv"]
+font = ExtResource("1_31no1")
+font_size = 80
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.72549)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rimba"]
+font = ExtResource("1_31no1")
+font_size = 36
+
+[node name="TitleScreen" type="Node2D"]
+position = Vector2(576, 320)
+script = ExtResource("1_c1xlg")
+
+[node name="background" type="Sprite2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="background"]
+position = Vector2(-3.05176e-05, 4.00003)
+scale = Vector2(2.304, 2.30605)
+sprite_frames = SubResource("SpriteFrames_cboh1")
+frame = 16
+frame_progress = 0.194561
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -517.0
+offset_top = -298.0
+offset_right = 517.0
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Higher Or Lower Roulette"
+label_settings = SubResource("LabelSettings_y0wyv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -136.0
+offset_right = -178.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 4)
+
+[node name="playButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_erj4f")
+texture_pressed = ExtResource("3_b7sjp")
+texture_hover = ExtResource("4_58xw6")
+
+[node name="freePlayButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_erj4f")
+texture_pressed = ExtResource("3_b7sjp")
+texture_hover = ExtResource("4_58xw6")
+
+[node name="optionsButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_erj4f")
+texture_pressed = ExtResource("3_b7sjp")
+texture_hover = ExtResource("4_58xw6")
+
+[node name="quitButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_erj4f")
+texture_pressed = ExtResource("3_b7sjp")
+texture_hover = ExtResource("4_58xw6")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -56.0
+offset_top = -128.0
+offset_right = 16.0
+offset_bottom = -91.0
+text = "Play"
+label_settings = SubResource("LabelSettings_rimba")
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -112.0
+offset_top = -48.0
+offset_right = 54.0
+offset_bottom = -11.0
+text = "Free play"
+label_settings = SubResource("LabelSettings_rimba")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -88.0
+offset_top = 32.0
+offset_right = 42.0
+offset_bottom = 69.0
+text = "Options"
+label_settings = SubResource("LabelSettings_rimba")
+
+[node name="Label5" type="Label" parent="."]
+offset_left = -56.0
+offset_top = 112.0
+offset_right = 9.0
+offset_bottom = 149.0
+text = "Quit"
+label_settings = SubResource("LabelSettings_rimba")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("29_a5lcc")
+volume_db = -35.77
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("30_sbqs5")
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("31_pavca")
+
+[connection signal="mouse_entered" from="VBoxContainer/playButton" to="." method="_on_play_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/freePlayButton" to="." method="_on_free_play_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/freePlayButton" to="." method="_on_free_play_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/optionsButton" to="." method="_on_options_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/quitButton" to="." method="_on_quit_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/quitButton" to="." method="_on_quit_button_pressed"]
