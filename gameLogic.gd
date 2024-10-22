@@ -51,7 +51,12 @@ var was_correct = true
 @onready var player_revolver_static_anim = $playerRevolverStatic/AnimationPlayer
 @onready var gun_shot_sound = $gunShot
 @onready var empty_shot_sound = $emptyShot
-@onready var muzzle_flash = $muzzleFlash
+@onready var player_muzzle_flash = $playerMuzzleFlash
+
+#Assets for rev. in UNK's hand, static is for animations
+@onready var unk_revolver = $oppRevolver
+@onready var unk_revolver_static = $oppRevolverStatic
+@onready var unk_muzzle_flash = $oppMuzzleFlash
 
 #Main sprite and anim player for revolver on table
 @onready var revolver_sprite = $revolverSpriteMain
@@ -168,12 +173,14 @@ func start_phase_2(): #Starts 'round' for phase two, checks who gets to choose w
 			print("(INCORRECT)Unk's chooses who to shoot")
 			revolver_main_anim_player.play("towards_UNK")
 			await revolver_main_anim_player.animation_finished
+			unk_revolver_static.visible = true
 			unk_shoot_choice_outcome() 
 	else: #UNKS turn
 		if was_correct: #Correct
 			print("(CORRECT) Unk chooses who to shoot")
 			revolver_main_anim_player.play("towards_UNK")
 			await revolver_main_anim_player.animation_finished
+			unk_revolver_static.visible = true
 			unk_shoot_choice_outcome()
 		else: #Incorrect
 			print("(INCORRECT) Player chooses who to shoot")
@@ -240,12 +247,12 @@ func _load_gun(): #Loads gun with random amt of bullets, into random positions
 
 func unk_card_decision() -> bool: #Returns true for higher, false for lower
 	if opponent_card > 7: #Greater than 7, greater chance to choose higher
-		if randf() <= .2: #20% choose opposite
+		if randf() <= .1: #20% choose opposite
 			return false
 		else:
 			return true
 	elif opponent_card < 7: #Less than 7, greater chance to choose lower
-		if randf() <= .2: #20% to choose opposite
+		if randf() <= .1: #20% to choose opposite
 			return true
 		else:
 			return false
@@ -278,7 +285,13 @@ func unk_shoot_choice_outcome():
 		current_bullet_space += 1 #Go to the next round in chamber
 		player_lives -= 1
 		_display_health()
+		#unk_revolver_static.visible = false
+		unk_revolver_static.visible = false
+		unk_revolver.visible = true
+		unk_muzzle_flash.visible= true
 		gun_shot_sound.play()
+		unk_revolver.play("default")
+		unk_muzzle_flash.play("default")
 		await wait_time.timeout
 		if _check_player_lives(player_lives):
 			_switch_to_phase_1()
@@ -290,8 +303,14 @@ func unk_shoot_choice_outcome():
 		current_bullet_space += 1 #Go to the next round in chamber
 		opp_lives -= 1
 		_display_health()
+		unk_revolver_static.visible = false
+		unk_revolver.visible = true
+		unk_revolver.play("default")
+		unk_muzzle_flash.visible= true
+		unk_muzzle_flash.play("default")
 		gun_shot_sound.play()
 		await wait_time.timeout
+
 		if _check_opp_lives(opp_lives):
 			_switch_to_phase_1()
 			start_phase_1()
@@ -519,7 +538,7 @@ func _on_unk_button_pressed(): #Handles unkButton press
 		_switch_to_phase_1() #Switch back to first phase
 		start_phase_1()
 	else: #Same logic as if, but now there is a bullet
-		muzzle_flash.play("default")
+		player_muzzle_flash.play("default")
 		player_revolver.play("default")
 		gun_shot_sound.play()
 		await player_revolver.animation_finished
@@ -579,6 +598,7 @@ func play_player_phase_2_animations():
 func play_UNK_phase_2_animations():
 	revolver_main_anim_player.play("towards_UNK")
 	await revolver_main_anim_player.animation_finished
+	
 
 func phase_1_sprite_changes():
 	#Make phase 2 sprites invisible
