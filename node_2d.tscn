@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=127 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -66,8 +66,9 @@
 [ext_resource type="AudioStream" uid="uid://gstfhgnar2m7" path="res://SoundEffects/shot-and-reload-6158.mp3" id="79_8663o"]
 [ext_resource type="AudioStream" uid="uid://codsx0e6ws3hd" path="res://SoundEffects/empty-gun-shot-6209.mp3" id="79_bjoek"]
 [ext_resource type="Texture2D" uid="uid://jxja6fdtdafc" path="res://assets/UNKRevShootingFrames/Frame0.png" id="85_s7plh"]
-[ext_resource type="Texture2D" uid="uid://borl06x0it68i" path="res://assets/UNKRevShootingFrames/Frame1.png" id="86_7r4oe"]
-[ext_resource type="Texture2D" uid="uid://tfe1gyt5meen" path="res://assets/UNKRevShootingFrames/Frame2.png" id="87_ccqvf"]
+[ext_resource type="Texture2D" uid="uid://d11gm8lmxijsi" path="res://assets/UnkRevolverWithMuzzle/frame0.png" id="86_nawm4"]
+[ext_resource type="Texture2D" uid="uid://dquhu4awqgull" path="res://assets/UnkRevolverWithMuzzle/frame1.png" id="87_45cke"]
+[ext_resource type="Texture2D" uid="uid://csbpki6cgyn72" path="res://assets/UnkRevolverWithMuzzle/frame2.png" id="88_yw8ic"]
 [ext_resource type="Texture2D" uid="uid://dqmkrfpw417x0" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Unpressed.png" id="322_stw36"]
 [ext_resource type="Texture2D" uid="uid://b48tpr8pys4ys" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Pressed.png" id="323_m0c45"]
 [ext_resource type="FontFile" uid="uid://bj1gutybytlfw" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="324_dks8b"]
@@ -931,26 +932,29 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("85_s7plh")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("86_7r4oe")
+"texture": ExtResource("86_nawm4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("87_ccqvf")
+"texture": ExtResource("87_45cke")
 }, {
 "duration": 1.0,
-"texture": ExtResource("86_7r4oe")
+"texture": ExtResource("88_yw8ic")
 }, {
 "duration": 1.0,
-"texture": ExtResource("85_s7plh")
+"texture": ExtResource("87_45cke")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_nawm4")
 }, {
 "duration": 1.0,
 "texture": null
 }],
 "loop": false,
 "name": &"default",
-"speed": 20.0
+"speed": 15.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -1282,6 +1286,7 @@ visible = false
 position = Vector2(720, 408)
 scale = Vector2(0.514, 0.362)
 sprite_frames = SubResource("SpriteFrames_tsrlt")
+frame = 1
 
 [node name="oppMuzzleFlash" type="AnimatedSprite2D" parent="."]
 visible = false
