@@ -23,6 +23,7 @@ var current_bullet_space = 0
 var first_switch = true
 var was_correct = true
 
+
 """Phase 1 OnReady Sprites"""
 @onready var animation_player = $AnimationPlayer
 @onready var introLabel = $introLabel
@@ -44,6 +45,7 @@ var was_correct = true
 @onready var opp_card_cloud_of_smoke = $oppCardCloudOfSmoke
 @onready var player_card_cloud_of_smoke = $playerCardCloudOfSmoke
 @onready var revolver_sprite_cloud_of_smoke = $gunCloudOfSmoke
+@onready var middle_rev_cloud_of_smoke = $middleRevPoof
 
 #Assets for rev. in player's hand, static is for slide in and slide out anims
 @onready var player_revolver = $playerRevolver
@@ -56,15 +58,19 @@ var was_correct = true
 #Assets for rev. in UNK's hand, static is for animations
 @onready var unk_revolver = $oppRevolver
 @onready var unk_revolver_static = $oppRevolverStatic
-@onready var unk_muzzle_flash = $oppMuzzleFlash
+@onready var unk_revolver_anim_player = $oppRevolver/oppRevolverAnimPlayer
 
 #Main sprite and anim player for revolver on table
 @onready var revolver_sprite = $revolverSpriteMain
 @onready var revolver_main_anim_player = $revolverSpriteMain/AnimationPlayer
 
-#Labels for phase 2, only for first time
+#Assets for rev in middle of screen, only for if UNK chooses to shoot himself
+@onready var rev_unk_shoot_self = $revolverIfUnkChoosesSelf
+
+#Labels for phase 2
 @onready var switch_label = $switchLabel
 @onready var switch_label_2 = $switchLabel2
+@onready var unk_hm_label = $oppWaitLabel
 
 """Health sprites/animations"""
 @onready var health_sprite = $health_sprite
@@ -173,14 +179,14 @@ func start_phase_2(): #Starts 'round' for phase two, checks who gets to choose w
 			print("(INCORRECT)Unk's chooses who to shoot")
 			revolver_main_anim_player.play("towards_UNK")
 			await revolver_main_anim_player.animation_finished
-			unk_revolver_static.visible = true
+			revolver_sprite.visible = false
 			unk_shoot_choice_outcome() 
 	else: #UNKS turn
 		if was_correct: #Correct
 			print("(CORRECT) Unk chooses who to shoot")
 			revolver_main_anim_player.play("towards_UNK")
 			await revolver_main_anim_player.animation_finished
-			unk_revolver_static.visible = true
+			revolver_sprite.visible = false
 			unk_shoot_choice_outcome()
 		else: #Incorrect
 			print("(INCORRECT) Player chooses who to shoot")
@@ -278,49 +284,78 @@ func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was 
 
 func unk_shoot_choice_outcome():
 	var shoot_player = unk_shoot_decision()
-	var wait_time = get_tree().create_timer(3)
+	var wait_time = get_tree().create_timer(2)
+	var poof_noise = get_node("poofSoundEffect")
+	unk_revolver.visible = true
+	unk_revolver_anim_player.play("float_around")
+	show_opponent_choice(shoot_player)
+	
+	for i in range(400): #Wait for 4 seconds
+		await get_tree().process_frame
+	
 	if shoot_player and bullet_arr[current_bullet_space] == 1:
 		print("UNK chooses to shoot player")
 		
 		current_bullet_space += 1 #Go to the next round in chamber
 		player_lives -= 1
 		_display_health()
-		#unk_revolver_static.visible = false
-		unk_revolver_static.visible = false
-		unk_revolver.visible = true
-		unk_muzzle_flash.visible= true
+
 		gun_shot_sound.play()
 		unk_revolver.play("default")
-		unk_muzzle_flash.play("default")
-		await wait_time.timeout
+
+		for i in range(200): #Wait for 2 seconds
+			await get_tree().process_frame
+
 		if _check_player_lives(player_lives):
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
 			_game_over()
 	elif !shoot_player and bullet_arr[current_bullet_space] == 1:
+		unk_revolver.visible = false
 		print("UNK chooses to shoot himself")
+		middle_rev_cloud_of_smoke.visible = true
+		middle_rev_cloud_of_smoke.play("default")
+		poof_noise.play()
+		for i in range(20):
+			await get_tree().process_frame
+		rev_unk_shoot_self.visible = true
+		await middle_rev_cloud_of_smoke.animation_finished
+		rev_unk_shoot_self.play("default")
+		gun_shot_sound.play()
 		current_bullet_space += 1 #Go to the next round in chamber
 		opp_lives -= 1
 		_display_health()
-		unk_revolver_static.visible = false
-		unk_revolver.visible = true
-		unk_revolver.play("default")
-		unk_muzzle_flash.visible= true
-		unk_muzzle_flash.play("default")
-		gun_shot_sound.play()
-		await wait_time.timeout
+		for i in range(90):
+			await get_tree().process_frame
+		rev_unk_shoot_self.visible = false
 
+		for i in range(90):
+			await get_tree().process_frame
 		if _check_opp_lives(opp_lives):
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
 			_game_over()
 	else:
-		print("Will add this shooting outcomne later")
-		current_bullet_space += 1 #Go to the next round in chamber
+		unk_revolver.visible = false
+		print("UNK chooses to shoot himself")
+		middle_rev_cloud_of_smoke.visible = true
+		poof_noise.play()
+		middle_rev_cloud_of_smoke.play("default")
+		for i in range(20):
+			await get_tree().process_frame
+		rev_unk_shoot_self.visible = true
+		await middle_rev_cloud_of_smoke.animation_finished
+		rev_unk_shoot_self.play("default")
 		empty_shot_sound.play()
-		await wait_time.timeout
+		for i in range(90):
+			await get_tree().process_frame
+		current_bullet_space += 1 #Go to the next round in chamber
+
+		rev_unk_shoot_self.visible = false
+		for i in range(90):
+			await get_tree().process_frame
 		_switch_to_phase_1()
 		start_phase_1()
 
@@ -595,12 +630,7 @@ func play_player_phase_2_animations():
 	player_revolver.visible = true
 	player_revolver_static.visible = false
 
-func play_UNK_phase_2_animations():
-	revolver_main_anim_player.play("towards_UNK")
-	await revolver_main_anim_player.animation_finished
-	
-
-func phase_1_sprite_changes():
+func phase_1_sprite_changes(): #Sprite changes when changing back to phase 1
 	#Make phase 2 sprites invisible
 	unk_button.visible = false
 	player_button.visible = false
@@ -613,12 +643,6 @@ func phase_1_sprite_changes():
 	player_card_sprite.visible = true
 
 
-	
-"""Interscene section(Based off who's turn it is)"""
-func unk_card_turn():
-	higherButton.visible = false
-	lowerButton.visible = false
-
 """Scene switching section"""
 func _switch_scene(): #Switch between this scene and the loading bullets scene
 	get_tree().paused = true
@@ -627,3 +651,27 @@ func _switch_scene(): #Switch between this scene and the loading bullets scene
 	
 	get_tree().root.add_child(scene_instance)
 	get_tree().current_scene = scene_instance
+
+
+"""Dynamic functions"""
+func show_opponent_choice(choice: bool): #Shows whoever UNK chose to shoot
+	var message1 = "Hmmmm..."
+	$oppWaitLabel.text = message1
+	$oppWaitLabel.show()
+	for i in range(200):
+		await get_tree().process_frame
+	$oppWaitLabel.hide()
+	if choice:
+		var message = "I choose you!"
+		$oppChoiceLabel.text = message
+		$oppChoiceLabel.show()
+		for i in range(200):
+			await get_tree().process_frame
+		$oppChoiceLabel.hide()
+	else:
+		var message = "I choose me!"
+		$oppChoiceLabel.text = message
+		$oppChoiceLabel.show()
+		for i in range(200):
+			await get_tree().process_frame
+		$oppChoiceLabel.hide()

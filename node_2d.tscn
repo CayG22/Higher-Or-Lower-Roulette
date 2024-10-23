@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=133 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -932,7 +932,7 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": null
+"texture": ExtResource("85_s7plh")
 }, {
 "duration": 1.0,
 "texture": ExtResource("86_nawm4")
@@ -955,6 +955,83 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_apm4l"]
+resource_name = "float_around"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../oppRevolver:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(740.25, 425.25), Vector2(712, 408), Vector2(656, 392), Vector2(608, 376), Vector2(584, 360), Vector2(552, 384), Vector2(512, 400), Vector2(472, 376), Vector2(440, 360), Vector2(416, 384), Vector2(384, 400)]
+}
+
+[sub_resource type="Animation" id="Animation_3demi"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sydij"]
+_data = {
+"RESET": SubResource("Animation_3demi"),
+"float_around": SubResource("Animation_apm4l")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_2vy4u"]
+font = ExtResource("343_4r3iq")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6o5v"]
+font = ExtResource("343_4r3iq")
+font_size = 21
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_et1jo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_v0hmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_hjuoj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_ta3l6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_1xsa2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_iu2i7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_d5ny7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_elq6c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_ome58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_o8gm3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_e4an7")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -1277,26 +1354,54 @@ volume_db = -4.0
 
 [node name="oppRevolverStatic" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(720, 408)
-scale = Vector2(0.514, 0.362)
+position = Vector2(693.333, 402.667)
+scale = Vector2(0.433, 0.293)
 texture = ExtResource("85_s7plh")
 
 [node name="oppRevolver" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(720, 408)
+position = Vector2(740.25, 425.25)
 scale = Vector2(0.514, 0.362)
 sprite_frames = SubResource("SpriteFrames_tsrlt")
-frame = 1
 
-[node name="oppMuzzleFlash" type="AnimatedSprite2D" parent="."]
+[node name="oppRevolverAnimPlayer" type="AnimationPlayer" parent="oppRevolver"]
+root_node = NodePath("../../oppRevolverStatic")
+libraries = {
+"": SubResource("AnimationLibrary_sydij")
+}
+speed_scale = 0.5
+
+[node name="oppWaitLabel" type="Label" parent="."]
 visible = false
-position = Vector2(712.937, 353.25)
-rotation = 0.00626461
-scale = Vector2(0.147778, 0.0919168)
-skew = 0.00162923
-sprite_frames = SubResource("SpriteFrames_nc2ay")
-frame = 4
+offset_left = 408.0
+offset_top = 184.0
+offset_right = 482.0
+offset_bottom = 207.0
+text = "Hmmmm..."
+label_settings = SubResource("LabelSettings_2vy4u")
+
+[node name="oppChoiceLabel" type="Label" parent="."]
+visible = false
+offset_left = 384.0
+offset_top = 160.0
+offset_right = 424.0
+offset_bottom = 183.0
+label_settings = SubResource("LabelSettings_l6o5v")
+
+[node name="revolverIfUnkChoosesSelf" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(632, 288)
+scale = Vector2(0.772, 0.82)
+sprite_frames = SubResource("SpriteFrames_ey2pk")
+frame = 16
 frame_progress = 1.0
+speed_scale = 4.0
+
+[node name="middleRevPoof" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(632, 328)
+scale = Vector2(0.477411, 0.5625)
+sprite_frames = SubResource("SpriteFrames_et1jo")
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]
