@@ -1,5 +1,4 @@
 extends Node2D
-
 """Phase 1 variables"""
 var deck = []
 var suits = ["hearts", "diamonds", "clubs", "spades"]
@@ -138,6 +137,15 @@ func load_card_art(): # Create a dictionary to map cards to their respective ima
 
 
 """Update functions"""
+func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().paused = true
+		var new_scene = preload("res://pauseMenu.tscn")
+		var scene_instance = new_scene.instantiate()
+	
+		get_tree().root.add_child(scene_instance)
+		get_tree().current_scene = scene_instance
+
 func update_time_label(): #Updates time label evrey second
 	while round_timer.time_left > 0:
 		var remaining_time = int(floor(round_timer.time_left))

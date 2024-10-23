@@ -15,20 +15,22 @@ func _process(delta: float) -> void:
 
 
 func _on_play_button_pressed():
-	$ClickSound.play()
+	#$ClickSound.play()
 	get_tree().change_scene_to_file("res://node_2d.tscn")
 
 
 func _on_quit_button_pressed() -> void:
-	$ClickSound.play()
+	#$ClickSound.play()
 	get_tree().quit()
 
 func _on_free_play_button_pressed() -> void:
-	$ClickSound.play()
+	#$ClickSound.play()
+	pass
 
 
 func _on_options_button_pressed() -> void:
-	$ClickSound.play()
+	#$ClickSound.play()
+	get_tree().change_scene_to_file("res://optionsMenu.tscn")
 
 func _on_play_button_mouse_entered() -> void:
 	$HoverSound.play()
