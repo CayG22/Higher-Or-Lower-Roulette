@@ -137,6 +137,7 @@ func load_card_art(): # Create a dictionary to map cards to their respective ima
 
 
 """Update functions"""
+"""DOESNT WORK
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().paused = true
@@ -145,6 +146,7 @@ func _process(delta):
 	
 		get_tree().root.add_child(scene_instance)
 		get_tree().current_scene = scene_instance
+"""
 
 func update_time_label(): #Updates time label evrey second
 	while round_timer.time_left > 0:
