@@ -57,6 +57,8 @@ func show_bullet_sprite(spot: String):
 		load_fades.play("fade_out")
 		await fade_out_timer.timeout
 		_switch_scene()
+	else:
+		_switch_scene()
 
 func _switch_scene():
 	var new_scene = preload("res://node_2d.tscn")
