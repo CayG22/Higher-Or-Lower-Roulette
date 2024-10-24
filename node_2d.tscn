@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=141 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -76,6 +76,7 @@
 [ext_resource type="AudioStream" uid="uid://63gwt3y7utw2" path="res://SoundEffects/CorrectSE.mp3" id="93_4embc"]
 [ext_resource type="Texture2D" uid="uid://b0lwcwbfo6u1b" path="res://assets/Xmark.png" id="94_ebbg3"]
 [ext_resource type="Texture2D" uid="uid://c5r6oyh6c2w1n" path="res://assets/CheckMark.png" id="95_uq66g"]
+[ext_resource type="AudioStream" uid="uid://c0hg6qk3om3ps" path="res://SoundEffects/Hollow Knight OST - Abyss [ ezmp3.cc ].mp3" id="96_4fpgd"]
 [ext_resource type="Texture2D" uid="uid://dqmkrfpw417x0" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Unpressed.png" id="322_stw36"]
 [ext_resource type="Texture2D" uid="uid://b48tpr8pys4ys" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Pressed.png" id="323_m0c45"]
 [ext_resource type="FontFile" uid="uid://bj1gutybytlfw" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="324_dks8b"]
@@ -1465,6 +1466,10 @@ visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(1, 0, 0, 0.2)
+
+[node name="backgroundmusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("96_4fpgd")
+parameters/looping = false
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]

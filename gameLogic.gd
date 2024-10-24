@@ -101,7 +101,7 @@ func _ready(): #Everything that scene when game is loaded
 	opp_health_sprite2.visible = false
 	opp_health_sprite3.visible = false
 
-	
+
 	load_card_art()
 	#$Background/AnimatedSprite2D.play() #Play background 
 	create_deck()  # Initialize deck with proper rank and suit combinations
