@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=140 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -69,6 +69,13 @@
 [ext_resource type="Texture2D" uid="uid://d11gm8lmxijsi" path="res://assets/UnkRevolverWithMuzzle/frame0.png" id="86_nawm4"]
 [ext_resource type="Texture2D" uid="uid://dquhu4awqgull" path="res://assets/UnkRevolverWithMuzzle/frame1.png" id="87_45cke"]
 [ext_resource type="Texture2D" uid="uid://csbpki6cgyn72" path="res://assets/UnkRevolverWithMuzzle/frame2.png" id="88_yw8ic"]
+[ext_resource type="Texture2D" uid="uid://7swcethgx2sh" path="res://assets/UnkRevNoMuzzle/frame0.png" id="89_0mi7p"]
+[ext_resource type="Texture2D" uid="uid://c6xpwfkyo57uy" path="res://assets/UnkRevNoMuzzle/frame1.png" id="90_duanx"]
+[ext_resource type="Texture2D" uid="uid://cjynnw3o5o775" path="res://assets/UnkRevNoMuzzle/frame2.png" id="91_lkh1b"]
+[ext_resource type="AudioStream" uid="uid://domfsy234axpj" path="res://SoundEffects/IncorrectSE.mp3" id="92_ui6ck"]
+[ext_resource type="AudioStream" uid="uid://63gwt3y7utw2" path="res://SoundEffects/CorrectSE.mp3" id="93_4embc"]
+[ext_resource type="Texture2D" uid="uid://b0lwcwbfo6u1b" path="res://assets/Xmark.png" id="94_ebbg3"]
+[ext_resource type="Texture2D" uid="uid://c5r6oyh6c2w1n" path="res://assets/CheckMark.png" id="95_uq66g"]
 [ext_resource type="Texture2D" uid="uid://dqmkrfpw417x0" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Unpressed.png" id="322_stw36"]
 [ext_resource type="Texture2D" uid="uid://b48tpr8pys4ys" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Pressed.png" id="323_m0c45"]
 [ext_resource type="FontFile" uid="uid://bj1gutybytlfw" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="324_dks8b"]
@@ -955,6 +962,29 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("89_0mi7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_duanx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_lkh1b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_duanx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_0mi7p")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"noMuzzle",
+"speed": 15.0
 }]
 
 [sub_resource type="Animation" id="Animation_3demi"]
@@ -1363,6 +1393,7 @@ visible = false
 position = Vector2(740.25, 425.25)
 scale = Vector2(0.514, 0.362)
 sprite_frames = SubResource("SpriteFrames_tsrlt")
+animation = &"noMuzzle"
 
 [node name="oppRevolverAnimPlayer" type="AnimationPlayer" parent="oppRevolver"]
 root_node = NodePath("../../oppRevolverStatic")
@@ -1402,6 +1433,38 @@ visible = false
 position = Vector2(632, 328)
 scale = Vector2(0.477411, 0.5625)
 sprite_frames = SubResource("SpriteFrames_et1jo")
+
+[node name="incorrectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("92_ui6ck")
+volume_db = -16.095
+
+[node name="correctSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("93_4embc")
+volume_db = -4.952
+
+[node name="xMark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(632, 352)
+scale = Vector2(0.564, 0.628)
+texture = ExtResource("94_ebbg3")
+
+[node name="checkMark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(672, 384)
+scale = Vector2(0.58, 0.548)
+texture = ExtResource("95_uq66g")
+
+[node name="GreenRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 1, 0, 0.164706)
+
+[node name="RedRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 0, 0, 0.2)
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]

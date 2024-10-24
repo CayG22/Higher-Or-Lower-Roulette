@@ -21,7 +21,7 @@ var bullet_arr = [0,0,0,0,0,0]
 var current_bullet_space = 0
 var first_switch = true
 var was_correct = true
-
+var turn = 0
 
 """Phase 1 OnReady Sprites"""
 @onready var animation_player = $AnimationPlayer
@@ -113,7 +113,7 @@ func _ready(): #Everything that scene when game is loaded
 	_display_health()
 	_play_starting_animations()
 	start_phase_1()
-	start_round_timer()
+	#start_round_timer()
 
 
 """On startup functions"""
@@ -190,6 +190,7 @@ func start_phase_2(): #Starts 'round' for phase two, checks who gets to choose w
 			revolver_main_anim_player.play("towards_UNK")
 			await revolver_main_anim_player.animation_finished
 			revolver_sprite.visible = false
+			unk_revolver.visible = true
 			unk_shoot_choice_outcome() 
 	else: #UNKS turn
 		if was_correct: #Correct
@@ -197,6 +198,7 @@ func start_phase_2(): #Starts 'round' for phase two, checks who gets to choose w
 			revolver_main_anim_player.play("towards_UNK")
 			await revolver_main_anim_player.animation_finished
 			revolver_sprite.visible = false
+			unk_revolver.visible = true
 			unk_shoot_choice_outcome()
 		else: #Incorrect
 			print("(INCORRECT) Player chooses who to shoot")
@@ -221,10 +223,24 @@ func _on_round_timer_timeout(): #Checks if timer runs out, if it does end the ga
 func player_guess(is_higher: bool): # Handle player's guess (higher or lower)
 	if (is_higher and player_card > opponent_card) or (not is_higher and player_card < opponent_card):
 		print("You guessed correctly!")
+		$correctSound.play()
+		$checkMark.show()
+		$GreenRect.show()
+		for i in range(100):
+			await get_tree().process_frame
+		$checkMark.hide()
+		$GreenRect.hide()
 		_switch_to_phase_2()
 		was_correct = true
 	else:
 		print("You were wrong")
+		$incorrectSound.play()
+		$xMark.show()
+		$RedRect.show()
+		for i in range(80):
+			await get_tree().process_frame
+		$xMark.hide()
+		$RedRect.hide()
 		_switch_to_phase_2()
 		was_correct = false
 
@@ -280,15 +296,31 @@ func unk_card_decision() -> bool: #Returns true for higher, false for lower
 
 func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was wrong
 	var choice = unk_card_decision()
-	var wait_time = get_tree().create_timer(3)
+
+	show_opponent_card_choice(choice)
+	for i in range(400): #Wait for 4 seconds
+		await get_tree().process_frame
+	
 	if (choice and opponent_card > player_card) or (not choice and opponent_card < player_card):
 		print("UNK was right")
-		await wait_time.timeout
+		$correctSound.play()
+		$checkMark.show()
+		$GreenRect.show()
+		for i in range(100):
+			await get_tree().process_frame
+		$checkMark.hide()
+		$GreenRect.hide()
 		_switch_to_phase_2()
 		was_correct = true
 	else:
 		print("UNK was wrong")
-		await wait_time.timeout
+		$incorrectSound.play()
+		$xMark.show()
+		$RedRect.show()
+		for i in range(80):
+			await get_tree().process_frame
+		$xMark.hide()
+		$RedRect.hide()
 		_switch_to_phase_2()
 		was_correct = false
 
@@ -296,7 +328,9 @@ func unk_shoot_choice_outcome():
 	var shoot_player = unk_shoot_decision()
 	var wait_time = get_tree().create_timer(2)
 	var poof_noise = get_node("poofSoundEffect")
-	unk_revolver.visible = true
+	
+	if unk_revolver.visible == false:
+		unk_revolver.visible = true
 	unk_revolver_anim_player.play("float_around")
 	show_opponent_choice(shoot_player)
 	
@@ -317,10 +351,16 @@ func unk_shoot_choice_outcome():
 			await get_tree().process_frame
 
 		if _check_player_lives(player_lives):
+			turn += 1
+			if turn == 6:
+				_load_gun()
+				first_switch = true
+				turn = 0
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
 			_game_over()
+
 	elif !shoot_player and bullet_arr[current_bullet_space] == 1:
 		unk_revolver.visible = false
 		print("UNK chooses to shoot himself")
@@ -343,31 +383,71 @@ func unk_shoot_choice_outcome():
 		for i in range(90):
 			await get_tree().process_frame
 		if _check_opp_lives(opp_lives):
+			turn += 1
+			print(turn)
+			if turn == 6:
+				_load_gun()
+				first_switch = true
+				turn = 0
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
 			_game_over()
+		
 	else:
-		unk_revolver.visible = false
-		print("UNK chooses to shoot himself")
-		middle_rev_cloud_of_smoke.visible = true
-		poof_noise.play()
-		middle_rev_cloud_of_smoke.play("default")
-		for i in range(20):
-			await get_tree().process_frame
-		rev_unk_shoot_self.visible = true
-		await middle_rev_cloud_of_smoke.animation_finished
-		rev_unk_shoot_self.play("default")
-		empty_shot_sound.play()
-		for i in range(90):
-			await get_tree().process_frame
-		current_bullet_space += 1 #Go to the next round in chamber
+		if shoot_player:
+			print("(EMPTY)UNK chooses to shoot player")
+			current_bullet_space += 1 #Go to the next round in chamber
+			empty_shot_sound.play()
+			unk_revolver.play("noMuzzle")
+			for i in range(200): #Wait for 2 seconds
+				await get_tree().process_frame
+			unk_revolver.visible = false
+			turn += 1
+			print(turn)
+			if turn == 6:
+				_load_gun()
+				first_switch = true
+				turn = 0
+			_switch_to_phase_1()
+			start_phase_1()
+		else:
+			unk_revolver.visible = false
+			print("(EMPTY)UNK chooses to shoot himself")
+			middle_rev_cloud_of_smoke.visible = true
+			poof_noise.play()
+			middle_rev_cloud_of_smoke.play("default")
+			for i in range(20):
+				await get_tree().process_frame
+			rev_unk_shoot_self.visible = true
+			await middle_rev_cloud_of_smoke.animation_finished
+			rev_unk_shoot_self.play("default")
+			empty_shot_sound.play()
+			for i in range(90):
+				await get_tree().process_frame
+			current_bullet_space += 1 #Go to the next round in chamber
 
-		rev_unk_shoot_self.visible = false
-		for i in range(90):
-			await get_tree().process_frame
-		_switch_to_phase_1()
-		start_phase_1()
+			rev_unk_shoot_self.visible = false
+			for i in range(90):
+				await get_tree().process_frame
+			turn += 1
+			print(turn)
+			if turn == 6:
+				_load_gun()
+				first_switch = true
+				turn = 0
+			_switch_to_phase_1()
+			start_phase_1()
+
+#TODO finish this
+func shoot_again(is_player_turn: bool):
+	if is_player_turn:
+		player_revolver_static_anim.play("slide_in")
+		await player_revolver_static_anim.animation_finished
+		player_revolver.visible = true
+		player_revolver_static.visible = false
+	else:
+		unk_shoot_choice_outcome()
 
 func unk_shoot_decision() -> bool: #If true, opponent will choose to shoot player, else shoot self
 	var player_score = 0
@@ -458,7 +538,7 @@ func _switch_to_phase_2(): #Switches 'state' to phase 2
 		for i in range(150):
 			await get_tree().process_frame
 		switch_label_2.visible = false
-		#_switch_scene()
+		_switch_scene()
 		start_phase_2()
 	else: #Not the first switch
 		var wait_timer = get_tree().create_timer(1.0)
@@ -519,19 +599,19 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 		health_sprite3.visible = true
 	elif player_lives == 2:
 		life_loss_sound.play()
-		blood_burst3.play("default")
+		#blood_burst3.play("default")
 		health_sprite.visible = true
 		health_sprite2.visible = true
 		health_sprite3.visible = false
 	elif player_lives == 1:
 		life_loss_sound.play()
-		blood_burst2.play("default")
+		#blood_burst2.play("default")
 		health_sprite.visible = true
 		health_sprite2.visible = false
 		health_sprite3.visible = false
 	else:
 		life_loss_sound.play()
-		blood_burst1.play("default")
+		#blood_burst1.play("default")
 		health_sprite.visible = false
 		health_sprite2.visible = false
 		health_sprite3.visible = false
@@ -542,19 +622,19 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 		opp_health_sprite3.visible = true
 	elif opp_lives == 2:
 		life_loss_sound.play()
-		opp_blood_burst1.play("default")
+		#opp_blood_burst1.play("default")
 		opp_health_sprite1.visible = false
 		opp_health_sprite2.visible = true
 		opp_health_sprite3.visible = true
 	elif opp_lives == 1:
 		life_loss_sound.play()
-		opp_blood_burst2.play("default")
+		#opp_blood_burst2.play("default")
 		opp_health_sprite1.visible = false
 		opp_health_sprite2.visible = false
 		opp_health_sprite3.visible = true
 	else:
 		life_loss_sound.play()
-		opp_blood_burst3.play("default")
+		#opp_blood_burst3.play("default")
 		opp_health_sprite1.visible = false
 		opp_health_sprite2.visible = false
 		opp_health_sprite3.visible = false
@@ -580,6 +660,12 @@ func _on_unk_button_pressed(): #Handles unkButton press
 		player_revolver_static_anim.play_backwards("slide_in") #Slide static out of frame
 		await player_revolver_static_anim.animation_finished
 		current_bullet_space += 1 #Go to the next round in chamber
+		turn += 1
+		print(turn)
+		if turn == 6:
+			_load_gun()
+			first_switch = true
+			turn = 0
 		_switch_to_phase_1() #Switch back to first phase
 		start_phase_1()
 	else: #Same logic as if, but now there is a bullet
@@ -595,6 +681,12 @@ func _on_unk_button_pressed(): #Handles unkButton press
 		await player_revolver_static_anim.animation_finished
 		if _check_opp_lives(opp_lives): #Check to see if opp has health left
 			current_bullet_space += 1
+			turn += 1
+			print(turn)
+			if turn == 6:
+				_load_gun()
+				first_switch = true
+				turn = 0
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
@@ -604,13 +696,28 @@ func _on_player_button_pressed(): #Handles playerButton press
 	if bullet_arr[current_bullet_space] == 0:
 		empty_shot_sound.play()
 		current_bullet_space += 1
+		turn += 1
+		print(turn)
+		if turn == 6:
+			_load_gun()
+			first_switch = true
+			turn = 0
 		_switch_to_phase_1()
+		start_phase_1()
 	else:
 		gun_shot_sound.play()
 		player_lives -= 1
 		_display_health()
 		if _check_player_lives(player_lives):
 			current_bullet_space += 1
+			
+			turn += 1
+			print(turn)
+			if turn == 6:
+				_load_gun()
+				first_switch = true
+				turn = 0
+			
 			_switch_to_phase_1()
 			start_phase_1()
 		else:
@@ -681,6 +788,28 @@ func show_opponent_choice(choice: bool): #Shows whoever UNK chose to shoot
 	else:
 		var message = "I choose me!"
 		$oppChoiceLabel.text = message
+		$oppChoiceLabel.show()
+		for i in range(200):
+			await get_tree().process_frame
+		$oppChoiceLabel.hide()
+
+func show_opponent_card_choice(higher: bool):
+	var message1 = "Hmmmm..."
+	$oppWaitLabel.text = message1
+	$oppWaitLabel.show()
+	for i in range(200):
+		await get_tree().process_frame
+	$oppWaitLabel.hide()
+	if higher:
+		var message2 = "I choose higher!"
+		$oppChoiceLabel.text = message2
+		$oppChoiceLabel.show()
+		for i in range(200):
+			await get_tree().process_frame
+		$oppChoiceLabel.hide()
+	else:
+		var message2 = "I choose lower!"
+		$oppChoiceLabel.text = message2
 		$oppChoiceLabel.show()
 		for i in range(200):
 			await get_tree().process_frame
