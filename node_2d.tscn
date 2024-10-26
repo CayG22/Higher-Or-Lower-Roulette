@@ -1,4 +1,4 @@
-[gd_scene load_steps=141 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=153 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -77,6 +77,10 @@
 [ext_resource type="Texture2D" uid="uid://b0lwcwbfo6u1b" path="res://assets/Xmark.png" id="94_ebbg3"]
 [ext_resource type="Texture2D" uid="uid://c5r6oyh6c2w1n" path="res://assets/CheckMark.png" id="95_uq66g"]
 [ext_resource type="AudioStream" uid="uid://c0hg6qk3om3ps" path="res://SoundEffects/Hollow Knight OST - Abyss [ ezmp3.cc ].mp3" id="96_4fpgd"]
+[ext_resource type="Texture2D" uid="uid://dtak0qnjfw3t2" path="res://assets/NESGunFrames/frame0.png" id="97_wipd4"]
+[ext_resource type="Texture2D" uid="uid://dhr2b7ig4qqdl" path="res://assets/NESGunFrames/frame1.png" id="98_jktv3"]
+[ext_resource type="Texture2D" uid="uid://cd8jxfu72xgp" path="res://assets/NESGunFrames/frame2.png" id="99_bcchr"]
+[ext_resource type="Texture2D" uid="uid://b886ypldqgja6" path="res://assets/SFWRevOnTable.png" id="100_wvf5a"]
 [ext_resource type="Texture2D" uid="uid://dqmkrfpw417x0" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Unpressed.png" id="322_stw36"]
 [ext_resource type="Texture2D" uid="uid://b48tpr8pys4ys" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Pressed.png" id="323_m0c45"]
 [ext_resource type="FontFile" uid="uid://bj1gutybytlfw" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="324_dks8b"]
@@ -729,64 +733,9 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="Animation" id="Animation_4d5m5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(784, 560)]
-}
-
-[sub_resource type="Animation" id="Animation_plykh"]
-resource_name = "slide_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(784, 560), Vector2(784, 448)]
-}
-
-[sub_resource type="Animation" id="Animation_qtqpw"]
-resource_name = "slide_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(784, 448), Vector2(784, 560)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4sdy4"]
-_data = {
-"RESET": SubResource("Animation_4d5m5"),
-"slide_in": SubResource("Animation_plykh"),
-"slide_out": SubResource("Animation_qtqpw")
-}
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_ey2pk"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": null
-}, {
 "duration": 1.0,
 "texture": ExtResource("62_av3q6")
 }, {
@@ -839,6 +788,58 @@ animations = [{
 "name": &"default",
 "speed": 60.0
 }]
+
+[sub_resource type="Animation" id="Animation_4d5m5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(784, 560)]
+}
+
+[sub_resource type="Animation" id="Animation_plykh"]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(784, 560), Vector2(784, 398)]
+}
+
+[sub_resource type="Animation" id="Animation_qtqpw"]
+resource_name = "slide_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(784, 448), Vector2(784, 560)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4sdy4"]
+_data = {
+"RESET": SubResource("Animation_4d5m5"),
+"slide_in": SubResource("Animation_plykh"),
+"slide_out": SubResource("Animation_qtqpw")
+}
 
 [sub_resource type="Animation" id="Animation_kkv1h"]
 length = 0.001
@@ -1021,6 +1022,117 @@ font_size = 20
 font = ExtResource("343_4r3iq")
 font_size = 21
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_1vorv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("97_wipd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_jktv3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("99_bcchr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_jktv3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_wipd4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_m1v6k"]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(866, 743), Vector2(866, 588)]
+}
+
+[sub_resource type="Animation" id="Animation_yx4iy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(866, 743)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibl4q"]
+_data = {
+"RESET": SubResource("Animation_yx4iy"),
+"slide_in": SubResource("Animation_m1v6k")
+}
+
+[sub_resource type="Animation" id="Animation_jkh7n"]
+resource_name = "towards_UNK"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(616, 569), Vector2(616, 512)]
+}
+
+[sub_resource type="Animation" id="Animation_8u06b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(616, 569)]
+}
+
+[sub_resource type="Animation" id="Animation_40sso"]
+resource_name = "towards_player"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(616, 569), Vector2(616, 690)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6bm5"]
+_data = {
+"RESET": SubResource("Animation_8u06b"),
+"towards_UNK": SubResource("Animation_jkh7n"),
+"towards_player": SubResource("Animation_40sso")
+}
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_et1jo"]
 animations = [{
 "frames": [{
@@ -1167,6 +1279,7 @@ offset_left = 1112.0
 offset_right = 1152.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_78706")
+metadata/_edit_use_anchors_ = true
 
 [node name="round_timer" type="Timer" parent="."]
 
@@ -1320,22 +1433,17 @@ rotation = -3.1381
 scale = Vector2(0.344, 0.273)
 sprite_frames = SubResource("SpriteFrames_nc2ay")
 
-[node name="playerRevolverStatic" type="Sprite2D" parent="."]
+[node name="playerRevolver" type="AnimatedSprite2D" parent="."]
 position = Vector2(784, 560)
-texture = ExtResource("62_av3q6")
+sprite_frames = SubResource("SpriteFrames_ey2pk")
+frame = 15
+frame_progress = 1.0
+speed_scale = 4.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="playerRevolverStatic"]
+[node name="playerRevAnimPlayer" type="AnimationPlayer" parent="playerRevolver"]
 libraries = {
 "": SubResource("AnimationLibrary_4sdy4")
 }
-
-[node name="playerRevolver" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(784, 448)
-sprite_frames = SubResource("SpriteFrames_ey2pk")
-frame = 16
-frame_progress = 1.0
-speed_scale = 4.0
 
 [node name="revolverSpriteMain" type="Sprite2D" parent="."]
 visible = false
@@ -1425,15 +1533,9 @@ visible = false
 position = Vector2(632, 288)
 scale = Vector2(0.772, 0.82)
 sprite_frames = SubResource("SpriteFrames_ey2pk")
-frame = 16
+frame = 15
 frame_progress = 1.0
 speed_scale = 4.0
-
-[node name="middleRevPoof" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(632, 328)
-scale = Vector2(0.477411, 0.5625)
-sprite_frames = SubResource("SpriteFrames_et1jo")
 
 [node name="incorrectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("92_ui6ck")
@@ -1470,6 +1572,36 @@ color = Color(1, 0, 0, 0.2)
 [node name="backgroundmusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("96_4fpgd")
 parameters/looping = false
+
+[node name="playerRevSFW" type="AnimatedSprite2D" parent="."]
+position = Vector2(866, 743)
+scale = Vector2(1.688, 1.684)
+sprite_frames = SubResource("SpriteFrames_1vorv")
+frame = 4
+frame_progress = 0.746383
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="playerRevSFW"]
+libraries = {
+"": SubResource("AnimationLibrary_ibl4q")
+}
+
+[node name="mainRevSFW" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(616, 569)
+scale = Vector2(0.248, 0.284)
+skew = 0.118682
+texture = ExtResource("100_wvf5a")
+
+[node name="mainRevSFWAnimPlayer" type="AnimationPlayer" parent="mainRevSFW"]
+libraries = {
+"": SubResource("AnimationLibrary_y6bm5")
+}
+
+[node name="middleRevPoof" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(626, 395)
+scale = Vector2(0.477411, 0.5625)
+sprite_frames = SubResource("SpriteFrames_et1jo")
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]

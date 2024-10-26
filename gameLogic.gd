@@ -1,4 +1,5 @@
 extends Node2D
+var sfw_mode = true
 """Phase 1 variables"""
 var deck = []
 var suits = ["hearts", "diamonds", "clubs", "spades"]
@@ -48,8 +49,7 @@ var turn = 0
 
 #Assets for rev. in player's hand, static is for slide in and slide out anims
 @onready var player_revolver = $playerRevolver
-@onready var player_revolver_static = $playerRevolverStatic
-@onready var player_revolver_static_anim = $playerRevolverStatic/AnimationPlayer
+@onready var player_revolver_anim_player = $playerRevolver/playerRevAnimPlayer
 @onready var gun_shot_sound = $gunShot
 @onready var empty_shot_sound = $emptyShot
 @onready var player_muzzle_flash = $playerMuzzleFlash
@@ -70,6 +70,12 @@ var turn = 0
 @onready var switch_label = $switchLabel
 @onready var switch_label_2 = $switchLabel2
 @onready var unk_hm_label = $oppWaitLabel
+
+"""SFW mode sprites"""
+@onready var player_rev_sfw = $playerRevSFW
+@onready var player_rev_sfw_anim_player = $playerRevSFW/AnimationPlayer
+@onready var main_rev_sfw = $mainRevSFW
+@onready var main_rev_sfw_anim_player = $mainRevSFW/mainRevSFWAnimPlayer
 
 """Health sprites/animations"""
 @onready var health_sprite = $health_sprite
@@ -100,7 +106,11 @@ func _ready(): #Everything that scene when game is loaded
 	opp_health_sprite1.visible = false
 	opp_health_sprite2.visible = false
 	opp_health_sprite3.visible = false
-
+	if sfw_mode:
+		player_revolver = player_rev_sfw
+		player_revolver_anim_player = player_rev_sfw_anim_player
+		revolver_main_anim_player = main_rev_sfw_anim_player
+		revolver_sprite = main_rev_sfw
 
 	load_card_art()
 	#$Background/AnimatedSprite2D.play() #Play background 
@@ -137,15 +147,6 @@ func load_card_art(): # Create a dictionary to map cards to their respective ima
 
 
 """Update functions"""
-"""DOESNT WORK
-func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().paused = true
-	elif Input.is_action_just_pressed("ui_accept"):
-		get_tree().paused = false
-"""
-
-
 func update_time_label(): #Updates time label evrey second
 	while round_timer.time_left > 0:
 		var remaining_time = int(floor(round_timer.time_left))
@@ -440,10 +441,8 @@ func unk_shoot_choice_outcome():
 #TODO finish this
 func shoot_again(is_player_turn: bool):
 	if is_player_turn:
-		player_revolver_static_anim.play("slide_in")
-		await player_revolver_static_anim.animation_finished
-		player_revolver.visible = true
-		player_revolver_static.visible = false
+		player_revolver_anim_player.play("slide_in")
+		await player_revolver_anim_player.animation_finished
 	else:
 		unk_shoot_choice_outcome()
 
@@ -524,7 +523,7 @@ func _switch_to_phase_2(): #Switches 'state' to phase 2
 		switch_label.visible = false
 		revolver_sprite_cloud_of_smoke.play("default")
 		
-		for i in range(5):
+		for i in range(10):
 			await get_tree().process_frame
 		poof_noise.play()
 		
@@ -536,7 +535,7 @@ func _switch_to_phase_2(): #Switches 'state' to phase 2
 		for i in range(150):
 			await get_tree().process_frame
 		switch_label_2.visible = false
-		_switch_scene()
+		#_switch_scene()
 		start_phase_2()
 	else: #Not the first switch
 		var wait_timer = get_tree().create_timer(1.0)
@@ -653,10 +652,9 @@ func _on_unk_button_pressed(): #Handles unkButton press
 		player_revolver.play("default") #Play shot anim
 		empty_shot_sound.play() #Play empty sound
 		await player_revolver.animation_finished #Wait till anim is done
-		player_revolver.visible = false #Get rid of animated sprite
-		player_revolver_static.visible = true #Show static sprite
-		player_revolver_static_anim.play_backwards("slide_in") #Slide static out of frame
-		await player_revolver_static_anim.animation_finished
+
+		player_revolver_anim_player.play_backwards("slide_in") #Slide static out of frame
+		await player_revolver_anim_player.animation_finished
 		current_bullet_space += 1 #Go to the next round in chamber
 		turn += 1
 		print(turn)
@@ -671,12 +669,10 @@ func _on_unk_button_pressed(): #Handles unkButton press
 		player_revolver.play("default")
 		gun_shot_sound.play()
 		await player_revolver.animation_finished
-		player_revolver.visible = false
-		player_revolver_static.visible = true
 		opp_lives -= 1 #Get rid of one health
 		_display_health() #Update health
-		player_revolver_static_anim.play_backwards("slide_in")
-		await player_revolver_static_anim.animation_finished
+		player_revolver_anim_player.play_backwards("slide_in")
+		await player_revolver_anim_player.animation_finished
 		if _check_opp_lives(opp_lives): #Check to see if opp has health left
 			current_bullet_space += 1
 			turn += 1
@@ -740,18 +736,16 @@ func play_player_phase_2_animations():
 	player_button.visible = true
 	revolver_main_anim_player.play("towards_player")
 	await revolver_main_anim_player.animation_finished
-	player_revolver_static_anim.play("slide_in")
-	await player_revolver_static_anim.animation_finished
-	player_revolver.visible = true
-	player_revolver_static.visible = false
+	player_revolver_anim_player.play("slide_in")
+	await player_revolver_anim_player.animation_finished
+
+
 
 func phase_1_sprite_changes(): #Sprite changes when changing back to phase 1
 	#Make phase 2 sprites invisible
 	unk_button.visible = false
 	player_button.visible = false
 	revolver_sprite.visible = false
-	player_revolver_static.visible = false
-	player_revolver.visible = false
 	#Make Phase 1 sprites visible
 	deck_of_cards.visible = true
 	opponent_card_sprite.visible = true
