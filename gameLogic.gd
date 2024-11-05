@@ -106,6 +106,7 @@ var turn = 0
 @onready var right_arrow_falling_anim_player = $rightArrowFalling/rightArrowFallingAnimPlayer
 @onready var left_arrow_falling = $leftArrowFalling
 @onready var left_arrow_falling_anim_player = $leftArrowFalling/leftArrowFallingAnimPlayer
+@onready var num_of_targets_label = $numOfTargetsLabel
 var easy_mode_speed = .7
 var normal_mode_speed = 1.1
 var hard_mode_speed = 1.7
@@ -114,6 +115,7 @@ var arrow_normal_mode_speed = .8
 var arrow_hard_mode_speed = 1
 var screen_size
 var difficulty = 0
+var num_of_targets = 0
 
 
 """Main game loop"""
@@ -125,6 +127,8 @@ func _ready(): #Everything that scene when game is loaded
 	opp_health_sprite1.visible = false
 	opp_health_sprite2.visible = false
 	opp_health_sprite3.visible = false
+	timer_sprite.connect("animation_finished", _on_animation_finished)
+
 	if sfw_mode:
 		player_revolver = player_rev_sfw
 		player_revolver_anim_player = player_rev_sfw_anim_player
@@ -338,6 +342,9 @@ func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was 
 
 func new_switch_to_phase_2():
 	var poof_noise = get_node("poofSoundEffect")
+	num_of_targets = floor(randf_range(5,10))
+	num_of_targets_label.visible = true
+	num_of_targets_label.text = "Targets left: " + str(num_of_targets)
 	if first_switch: #if havent switched this round
 		var wait_timer = get_tree().create_timer(3.0)
 		var small_timer = get_tree().create_timer(.1)
@@ -552,24 +559,41 @@ func show_opponent_card_choice(higher: bool):
 		$oppChoiceLabel.hide()
 
 """NEW FUNCTIONS"""
-func move_target(): #Moves the target around the screen
-
+func move_target():
+	num_of_targets_label.text = "Targets left: " + str(num_of_targets)
+	var speed = hard_mode_speed
 	target.visible = true
 	timer_sprite.visible = true
-	var speed = hard_mode_speed
 	var max_x = screen_size.x - target.get_size().x
-	var max_y = screen_size.y - target.get_size().y
+	var max_y = screen_size.x - target.get_size().y
 	var new_position = Vector2(randf() * (screen_size.x - max_x), randf() * (screen_size.y - max_y))
 	target.position = new_position
 	timer_sprite.set_speed_scale(speed)
 	timer_sprite.play("default")
-	await timer_sprite.animation_finished #Even if I stop the animation, it still reads it as finished
-	 #Diff way to see if the animation played all the way through? Maybe add a timer that checks?
-	 #Maybe a restart anim function??? Not sure
+	if num_of_targets == 0:
+		timer_sprite.stop()
+		target.visible = false
+		timer_sprite.visible = false
+		num_of_targets_label.visible = false
+		opp_lives -= 1
+		_display_health()
+		
+		if _check_opp_lives(opp_lives):
+			_switch_to_phase_1()
+		else:
+			_game_over()
 
-func _on_target_pressed() -> void: #Check to see if target was pressed within time frame
+func _on_animation_finished():
+	target.visible = false
+	timer_sprite.visible = false
+	num_of_targets_label = false
+	_switch_to_phase_1()
+
+func _on_target_pressed() -> void:
 	timer_sprite.stop()
+	num_of_targets -= 1
 	move_target()
+
 
 func loop_arrows(): #Loops arow falling from top of screen to bottom
 	var x = 0
@@ -582,11 +606,11 @@ func make_arrow_fall(): #Decides which arrow should be falling
 	if randf() > 0.5:
 		right_arrow_falling_anim_player.set_speed_scale(arrow_hard_mode_speed)
 		right_arrow_falling_anim_player.play("fall")
-		await right_arrow_falling_anim_player.animation_finished
+
 	else:
 		left_arrow_falling_anim_player.set_speed_scale(arrow_hard_mode_speed)
 		left_arrow_falling_anim_player.play("fall")
-		await left_arrow_falling_anim_player.animation_finished
+
 
 func _input(event): #Gets the input from the user
 	if event.is_action_pressed("ui_right") and is_in_target_area("right"):

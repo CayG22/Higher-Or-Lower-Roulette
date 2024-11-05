@@ -1468,21 +1468,6 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="Animation" id="Animation_td0os"]
-resource_name = "fall"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(772, -50), Vector2(772, 708)]
-}
-
 [sub_resource type="Animation" id="Animation_svmy2"]
 length = 0.001
 tracks/0/type = "value"
@@ -1523,6 +1508,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_td0os"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(772, -50), Vector2(772, 708)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bq5k3"]
@@ -1570,21 +1570,6 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="Animation" id="Animation_nxwnl"]
-resource_name = "fall"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(461, -50), Vector2(461, 705)]
-}
-
 [sub_resource type="Animation" id="Animation_3jcru"]
 length = 0.001
 tracks/0/type = "value"
@@ -1625,6 +1610,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nxwnl"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(461, -50), Vector2(461, 705)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ivxcm"]
@@ -1885,12 +1885,14 @@ stream = ExtResource("61_iignn")
 volume_db = -4.0
 
 [node name="playerMuzzleFlash" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(784, 560)
 rotation = -3.1381
 scale = Vector2(0.344, 0.273)
 sprite_frames = SubResource("SpriteFrames_nc2ay")
 
 [node name="playerRevolver" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(784, 560)
 sprite_frames = SubResource("SpriteFrames_ey2pk")
 frame = 15
@@ -1915,6 +1917,7 @@ libraries = {
 }
 
 [node name="gunCloudOfSmoke" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(608, 504)
 scale = Vector2(0.361929, 0.3125)
 sprite_frames = SubResource("SpriteFrames_dgipp")
@@ -2031,6 +2034,7 @@ stream = ExtResource("96_4fpgd")
 parameters/looping = false
 
 [node name="playerRevSFW" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(866, 743)
 scale = Vector2(1.688, 1.684)
 sprite_frames = SubResource("SpriteFrames_1vorv")
@@ -2108,6 +2112,14 @@ frame_progress = 1.0
 libraries = {
 "": SubResource("AnimationLibrary_ivxcm")
 }
+
+[node name="numOfTargetsLabel" type="Label" parent="."]
+visible = false
+offset_left = 560.0
+offset_top = 24.0
+offset_right = 666.0
+offset_bottom = 47.0
+scale = Vector2(1.5, 1.5)
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]
