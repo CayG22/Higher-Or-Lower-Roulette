@@ -2078,6 +2078,7 @@ scale = Vector2(0.290537, 0.289856)
 sprite_frames = SubResource("SpriteFrames_305cj")
 
 [node name="rightArrowStatic" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.243137)
 position = Vector2(772, 605)
 scale = Vector2(0.13637, 0.138567)
@@ -2096,6 +2097,7 @@ libraries = {
 }
 
 [node name="leftArrowStatic" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.243137)
 position = Vector2(461, 605)
 scale = Vector2(0.137, 0.137)
@@ -2127,3 +2129,5 @@ scale = Vector2(1.5, 1.5)
 [connection signal="pressed" from="UNKButton" to="." method="_on_unk_button_pressed"]
 [connection signal="pressed" from="playerButton" to="." method="_on_player_button_pressed"]
 [connection signal="pressed" from="Target" to="." method="_on_target_pressed"]
+[connection signal="animation_finished" from="rightArrowFalling/rightArrowFallingAnimPlayer" to="." method="_on_right_arrow_falling_anim_player_animation_finished"]
+[connection signal="animation_finished" from="leftArrowFalling/leftArrowFallingAnimPlayer" to="." method="_on_left_arrow_falling_anim_player_animation_finished"]

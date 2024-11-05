@@ -116,7 +116,8 @@ var arrow_hard_mode_speed = 1
 var screen_size
 var difficulty = 0
 var num_of_targets = 0
-
+var num_of_arrows = 0
+var arrow_animation_finished = false
 
 """Main game loop"""
 func _ready(): #Everything that scene when game is loaded
@@ -595,27 +596,79 @@ func _on_target_pressed() -> void:
 	move_target()
 
 
-func loop_arrows(): #Loops arow falling from top of screen to bottom
-	var x = 0
-	while x == 0:
+func loop_arrows(): # Loops arrow falling from top of screen to bottom
+	right_arrow_static.visible = true
+	left_arrow_static.visible = true
+	arrow_animation_finished = false
+	num_of_arrows = floor(randf_range(5, 10))
+	print(num_of_arrows)
+
+	for i in range(num_of_arrows):
 		make_arrow_fall()
-		for i in range(150):
+		
+	# Introduce delay between each arrow's fall
+		for x in range(150):
 			await get_tree().process_frame
+		
+		if arrow_animation_finished:
+			break
+	# Stop animations and switch phase after all arrows have fallen
+	left_arrow_falling_anim_player.stop()
+	right_arrow_falling_anim_player.stop()
+	for i in range(150):
+		await get_tree().process_frame
+	_switch_to_phase_1()
 
 func make_arrow_fall(): #Decides which arrow should be falling
 	if randf() > 0.5:
 		right_arrow_falling_anim_player.set_speed_scale(arrow_hard_mode_speed)
 		right_arrow_falling_anim_player.play("fall")
-
+		
 	else:
 		left_arrow_falling_anim_player.set_speed_scale(arrow_hard_mode_speed)
 		left_arrow_falling_anim_player.play("fall")
 
+func _on_right_arrow_falling_anim_player_animation_finished(anim_name: StringName):
+	if anim_name == "fall":
+		arrow_animation_finished = true
+		right_arrow_falling_anim_player.stop()
+		left_arrow_falling_anim_player.stop()
+		#left_arrow_falling.visible = false
+		#right_arrow_falling.visible = false
+		#right_arrow_static.visible = false
+		#left_arrow_static.visible = false
+		player_lives -= 1
+		_display_health()
+		if _check_player_lives(player_lives):
+			_switch_to_phase_1()
+		else:
+			_game_over()
+
+
+
+func _on_left_arrow_falling_anim_player_animation_finished(anim_name: StringName):
+	if anim_name == "fall":
+		arrow_animation_finished = true
+		right_arrow_falling_anim_player.stop()
+		left_arrow_falling_anim_player.stop()
+		#left_arrow_falling.visible = false
+		#right_arrow_falling.visible = false
+		#right_arrow_static.visible = false
+		#left_arrow_static.visible = false
+		player_lives -= 1
+		_display_health()
+		if _check_player_lives(player_lives):
+			_switch_to_phase_1()
+		else:
+			_game_over()
+
 
 func _input(event): #Gets the input from the user
 	if event.is_action_pressed("ui_right") and is_in_target_area("right"):
+		num_of_arrows -= 1
 		handle_hit("right")
 	elif event.is_action_pressed("ui_left") and is_in_target_area("left"):
+		num_of_arrows -= 1
 		handle_hit("left")
 
 func is_in_target_area(direction: String) -> bool: #Check to see if the arrow that fell was pressed in time
