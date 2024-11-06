@@ -1,4 +1,4 @@
-[gd_scene load_steps=181 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=187 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -93,11 +93,17 @@
 [ext_resource type="Texture2D" uid="uid://e6dj8uu51t4f" path="res://assets/timergifframes/frame_41_delay-0.07s.png" id="143_j6qp7"]
 [ext_resource type="Texture2D" uid="uid://cumo74p8hfwil" path="res://assets/timergifframes/frame_42_delay-0.03s.png" id="144_twubi"]
 [ext_resource type="Texture2D" uid="uid://00w2e0ry25ft" path="res://assets/timergifframes/frame_43_delay-0.03s.png" id="145_471sg"]
+[ext_resource type="Texture2D" uid="uid://dwavc0j3awdy5" path="res://ButtonTextures/EasyButtonFrames/sprite_0.png" id="145_m50o6"]
+[ext_resource type="Texture2D" uid="uid://5u7vuf3li7ba" path="res://ButtonTextures/EasyButtonFrames/sprite_1.png" id="146_1ushc"]
 [ext_resource type="Texture2D" uid="uid://cwortqo6p5bwt" path="res://assets/timergifframes/frame_44_delay-0.04s.png" id="146_mqsqd"]
+[ext_resource type="Texture2D" uid="uid://cj035muo05kmy" path="res://ButtonTextures/NormalButtonFrame/sprite_0.png" id="147_gb64a"]
 [ext_resource type="Texture2D" uid="uid://4qxllirq5mht" path="res://assets/timergifframes/frame_45_delay-0.03s.png" id="147_rfgbd"]
+[ext_resource type="Texture2D" uid="uid://bgejmgrspxwa5" path="res://ButtonTextures/NormalButtonFrame/sprite_1.png" id="148_4ijvh"]
 [ext_resource type="Texture2D" uid="uid://cllglrdxosdm6" path="res://assets/timergifframes/frame_46_delay-0.03s.png" id="148_rc4er"]
+[ext_resource type="Texture2D" uid="uid://dlld5tpqcr172" path="res://ButtonTextures/HardButtonFrame/sprite_0.png" id="149_dd1ey"]
 [ext_resource type="Texture2D" uid="uid://cuqvcek5jd5w2" path="res://assets/timergifframes/frame_47_delay-0.04s.png" id="149_gqxa3"]
 [ext_resource type="Texture2D" uid="uid://tekjyiwr358" path="res://assets/timergifframes/frame_48_delay-0.03s.png" id="150_2v3u8"]
+[ext_resource type="Texture2D" uid="uid://dw3sregcdunf8" path="res://ButtonTextures/HardButtonFrame/sprite_1.png" id="150_duplf"]
 [ext_resource type="Texture2D" uid="uid://dibqay4s6ag2b" path="res://assets/timergifframes/frame_49_delay-0.03s.png" id="151_regms"]
 [ext_resource type="Texture2D" uid="uid://cwfv323soearp" path="res://assets/timergifframes/frame_50_delay-0.04s.png" id="152_fd3y6"]
 [ext_resource type="Texture2D" uid="uid://c3msrsmjtxrc7" path="res://assets/timergifframes/frame_51_delay-0.03s.png" id="153_7qe1r"]
@@ -1437,6 +1443,40 @@ offset_top = 8.0
 offset_right = 659.0
 offset_bottom = 31.0
 scale = Vector2(1.5, 1.5)
+
+[node name="difficultyPanel" type="Panel" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="EasyButton" type="TextureButton" parent="difficultyPanel"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = -16.0
+offset_right = 1424.0
+offset_bottom = 1008.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("145_m50o6")
+texture_hover = ExtResource("146_1ushc")
+
+[node name="NormalButton" type="TextureButton" parent="difficultyPanel"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 176.0
+offset_right = 1424.0
+offset_bottom = 1200.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("147_gb64a")
+texture_hover = ExtResource("148_4ijvh")
+
+[node name="HardButton" type="TextureButton" parent="difficultyPanel"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 368.0
+offset_right = 1424.0
+offset_bottom = 1392.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("149_dd1ey")
+texture_hover = ExtResource("150_duplf")
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]
