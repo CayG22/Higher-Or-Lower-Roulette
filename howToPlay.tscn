@@ -102,5 +102,3 @@ offset_right = 485.0
 offset_bottom = 339.0
 text = "Based off whether the player THAT CHOSE 
 is right or wrong phase two will begin"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
