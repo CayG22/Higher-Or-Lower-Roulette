@@ -1,0 +1,150 @@
+[gd_scene load_steps=12 format=3 uid="uid://co735fe5o0xgb"]
+
+[ext_resource type="FontFile" uid="uid://dothjl2nmh4jf" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/connection_ii/ConnectionII.otf" id="1_gca1j"]
+[ext_resource type="Script" path="res://loading_screen_script.gd" id="1_lk01b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ca3v3"]
+font = ExtResource("1_gca1j")
+font_size = 65
+
+[sub_resource type="Animation" id="Animation_qakop"]
+resource_name = "in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5a4pn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3klbd"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tnihm"]
+_data = {
+"RESET": SubResource("Animation_5a4pn"),
+"in": SubResource("Animation_qakop"),
+"out": SubResource("Animation_3klbd")
+}
+
+[sub_resource type="Animation" id="Animation_lmu61"]
+resource_name = "in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vo3eq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pc2i6"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_snkrp"]
+_data = {
+"RESET": SubResource("Animation_vo3eq"),
+"in": SubResource("Animation_lmu61"),
+"out": SubResource("Animation_pc2i6")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_lk01b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="gameMadeBy" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 40.0
+offset_top = 280.0
+offset_right = 1106.0
+offset_bottom = 345.0
+text = "A game made by Cayden Garcia"
+label_settings = SubResource("LabelSettings_ca3v3")
+
+[node name="gameMadeByAnimPlayer" type="AnimationPlayer" parent="gameMadeBy"]
+libraries = {
+"": SubResource("AnimationLibrary_tnihm")
+}
+
+[node name="studioName" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 368.0
+offset_top = 288.0
+offset_right = 791.0
+offset_bottom = 371.0
+text = "KAGS Studios"
+label_settings = SubResource("LabelSettings_ca3v3")
+
+[node name="studioNameAnimPlayer" type="AnimationPlayer" parent="studioName"]
+libraries = {
+"": SubResource("AnimationLibrary_snkrp")
+}

@@ -1,6 +1,7 @@
-[gd_scene load_steps=263 format=3 uid="uid://dgrmtxs5cjt20"]
+[gd_scene load_steps=267 format=3 uid="uid://dgrmtxs5cjt20"]
 
 [ext_resource type="Script" path="res://how_to_play_script.gd" id="1_l3kv2"]
+[ext_resource type="FontFile" uid="uid://dothjl2nmh4jf" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/connection_ii/ConnectionII.otf" id="2_01e8g"]
 [ext_resource type="Texture2D" uid="uid://d3x4t5kxfl7rs" path="res://phase1VidFrames/ezgif-frame-001.jpg" id="2_37u3k"]
 [ext_resource type="Texture2D" uid="uid://d33i475hww3jk" path="res://phase1VidFrames/ezgif-frame-002.jpg" id="3_jkkrv"]
 [ext_resource type="Texture2D" uid="uid://cbgbnf2bugpxj" path="res://phase1VidFrames/ezgif-frame-003.jpg" id="4_86yeu"]
@@ -259,6 +260,16 @@
 [ext_resource type="Texture2D" uid="uid://52ut7cf7n7k5" path="res://ArrowsVidFrames/ezgif-frame-094.jpg" id="257_a54ey"]
 [ext_resource type="Texture2D" uid="uid://batugywmmqxnv" path="res://ButtonTextures/backButtonFrames/sprite_0.png" id="258_shi2t"]
 [ext_resource type="Texture2D" uid="uid://b1277h6cod107" path="res://ButtonTextures/backButtonFrames/sprite_1.png" id="259_08hy5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qvyui"]
+font = ExtResource("2_01e8g")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_4b506"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wvwn"]
+font_size = 30
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jyqj6"]
 animations = [{
@@ -1062,11 +1073,11 @@ color = Color(0, 0, 0, 1)
 
 [node name="Title" type="Label" parent="ColorRect"]
 layout_mode = 0
-offset_left = 496.0
-offset_right = 591.0
-offset_bottom = 23.0
-scale = Vector2(2, 2)
+offset_left = 376.0
+offset_right = 748.0
+offset_bottom = 60.0
 text = "How To Play"
+label_settings = SubResource("LabelSettings_qvyui")
 
 [node name="Title2" type="Label" parent="ColorRect"]
 layout_mode = 0
@@ -1074,8 +1085,8 @@ offset_left = 64.0
 offset_top = 88.0
 offset_right = 159.0
 offset_bottom = 111.0
-scale = Vector2(2, 2)
 text = "Phase 1:"
+label_settings = SubResource("LabelSettings_4b506")
 
 [node name="Title6" type="Label" parent="ColorRect"]
 layout_mode = 0
@@ -1083,8 +1094,8 @@ offset_left = 776.0
 offset_top = 88.0
 offset_right = 871.0
 offset_bottom = 111.0
-scale = Vector2(2, 2)
 text = "Phase 2:"
+label_settings = SubResource("LabelSettings_8wvwn")
 
 [node name="Title7" type="Label" parent="ColorRect"]
 layout_mode = 0
