@@ -427,6 +427,7 @@ func _on_animation_finished(): #Check to see if player missed click
 	_switch_to_phase_1()
 
 func _on_target_pressed() -> void: #Check if target was clicked
+	$Target/ClickSound.play()
 	timer_sprite.stop()
 	num_of_targets -= 1
 	move_target()
@@ -482,6 +483,7 @@ func make_arrow_fall(): #Decides which arrow should be falling
 func _on_right_arrow_falling_anim_player_animation_finished(anim_name: StringName): #Check to see if arrow fell through
 	if anim_name == "fall":
 		#num_of_arrows_label.visible = false
+
 		arrow_animation_finished = true
 		right_arrow_falling_anim_player.stop()
 		left_arrow_falling_anim_player.stop()
@@ -507,10 +509,12 @@ func _on_left_arrow_falling_anim_player_animation_finished(anim_name: StringName
 
 func _input(event): #Gets the input from the user
 	if event.is_action_pressed("ui_right") and is_in_target_area("right"):
+		$rightArrowStatic/arrowGet.play()
 		num_of_arrows -= 1
 		#num_of_arrows_label.text = "Arrows Left: " + str(num_of_arrows)
 		handle_hit("right")
 	elif event.is_action_pressed("ui_left") and is_in_target_area("left"):
+		$rightArrowStatic/arrowGet.play()
 		num_of_arrows -= 1
 		#num_of_arrows_label.text = "Arrows Left: " + str(num_of_arrows)
 		handle_hit("left")

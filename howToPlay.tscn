@@ -1,0 +1,106 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgrmtxs5cjt20"]
+
+[ext_resource type="Script" path="res://how_to_play_script.gd" id="1_l3kv2"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_l3kv2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 496.0
+offset_right = 591.0
+offset_bottom = 23.0
+scale = Vector2(2, 2)
+text = "How To Play"
+
+[node name="Title2" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 88.0
+offset_right = 159.0
+offset_bottom = 111.0
+scale = Vector2(2, 2)
+text = "Phase 1:"
+
+[node name="Title6" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 88.0
+offset_right = 871.0
+offset_bottom = 111.0
+scale = Vector2(2, 2)
+text = "Phase 2:"
+
+[node name="Title7" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 144.0
+offset_right = 735.0
+offset_bottom = 167.0
+scale = Vector2(1.5, 1.5)
+text = "Targets:"
+
+[node name="Title8" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 144.0
+offset_right = 1031.0
+offset_bottom = 167.0
+scale = Vector2(1.5, 1.5)
+text = "Arrows:"
+
+[node name="Title3" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 136.0
+offset_right = 485.0
+offset_bottom = 211.0
+text = "At the start of each round two cards will be drawn"
+
+[node name="Title4" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 184.0
+offset_right = 485.0
+offset_bottom = 259.0
+text = "You and UNK will take turns choosing whether
+your card or his card is either higher or lower"
+
+[node name="Title9" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 200.0
+offset_right = 872.0
+offset_bottom = 275.0
+text = "Click all targets before timer runs out. 
+If you complete this task UNK loses a life"
+
+[node name="Title10" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 200.0
+offset_right = 1240.0
+offset_bottom = 379.0
+text = "Press (->) or (<-) when
+the arrow crosses
+the static arrow
+If you complete this
+task then you will not 
+lose a life, if you fail
+you will lose one life"
+
+[node name="Title5" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 264.0
+offset_right = 485.0
+offset_bottom = 339.0
+text = "Based off whether the player THAT CHOSE 
+is right or wrong phase two will begin"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

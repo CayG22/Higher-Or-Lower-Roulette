@@ -1,4 +1,4 @@
-[gd_scene load_steps=187 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=190 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -72,10 +72,13 @@
 [ext_resource type="Texture2D" uid="uid://bnnyt1chuoy0c" path="res://assets/timergifframes/frame_20_delay-0.03s.png" id="122_rp0rv"]
 [ext_resource type="Texture2D" uid="uid://kphvit4rlr33" path="res://assets/timergifframes/frame_21_delay-0.07s.png" id="123_ahobi"]
 [ext_resource type="Texture2D" uid="uid://damottwtn31dq" path="res://assets/timergifframes/frame_22_delay-0.03s.png" id="124_wt43r"]
+[ext_resource type="AudioStream" uid="uid://ddamubkn1rard" path="res://SoundEffects/MouseClickEdited.mp3" id="125_brdl0"]
 [ext_resource type="Texture2D" uid="uid://bxv6c57n0ul5e" path="res://assets/timergifframes/frame_23_delay-0.04s.png" id="125_l0agn"]
 [ext_resource type="Texture2D" uid="uid://bm5ynwgtgxtwt" path="res://assets/timergifframes/frame_24_delay-0.03s.png" id="126_enve2"]
 [ext_resource type="Texture2D" uid="uid://v33eraixtteh" path="res://assets/timergifframes/frame_25_delay-0.03s.png" id="127_khhgi"]
+[ext_resource type="AudioStream" uid="uid://4kfnr64x2j4i" path="res://SoundEffects/ArrowGet.mp3" id="127_nqjdp"]
 [ext_resource type="Texture2D" uid="uid://ccdy0gyst6bro" path="res://assets/timergifframes/frame_26_delay-0.04s.png" id="128_cehaf"]
+[ext_resource type="AudioStream" uid="uid://cfa147o4artq8" path="res://SoundEffects/ArrowMiss.mp3" id="128_wgmtv"]
 [ext_resource type="Texture2D" uid="uid://c6mo63g4diqfj" path="res://assets/timergifframes/frame_27_delay-0.03s.png" id="129_qbqjx"]
 [ext_resource type="Texture2D" uid="uid://d0c2ky33ixvue" path="res://assets/timergifframes/frame_28_delay-0.07s.png" id="130_s1ymc"]
 [ext_resource type="Texture2D" uid="uid://d4ln2uogqec0x" path="res://assets/timergifframes/frame_29_delay-0.03s.png" id="131_5rssp"]
@@ -1390,12 +1393,21 @@ position = Vector2(250, 250)
 scale = Vector2(0.290537, 0.289856)
 sprite_frames = SubResource("SpriteFrames_305cj")
 
+[node name="ClickSound" type="AudioStreamPlayer" parent="Target"]
+stream = ExtResource("125_brdl0")
+
 [node name="rightArrowStatic" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.243137)
 position = Vector2(772, 605)
 scale = Vector2(0.13637, 0.138567)
 texture = ExtResource("158_11dd2")
+
+[node name="arrowGet" type="AudioStreamPlayer" parent="rightArrowStatic"]
+stream = ExtResource("127_nqjdp")
+
+[node name="arrowMiss" type="AudioStreamPlayer" parent="rightArrowStatic"]
+stream = ExtResource("128_wgmtv")
 
 [node name="rightArrowFalling" type="AnimatedSprite2D" parent="."]
 position = Vector2(772, -50)
