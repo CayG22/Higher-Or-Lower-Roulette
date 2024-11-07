@@ -1445,6 +1445,7 @@ offset_bottom = 31.0
 scale = Vector2(1.5, 1.5)
 
 [node name="difficultyPanel" type="Panel" parent="."]
+visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 
@@ -1484,3 +1485,6 @@ texture_hover = ExtResource("150_duplf")
 [connection signal="pressed" from="Target" to="." method="_on_target_pressed"]
 [connection signal="animation_finished" from="rightArrowFalling/rightArrowFallingAnimPlayer" to="." method="_on_right_arrow_falling_anim_player_animation_finished"]
 [connection signal="animation_finished" from="leftArrowFalling/leftArrowFallingAnimPlayer" to="." method="_on_left_arrow_falling_anim_player_animation_finished"]
+[connection signal="pressed" from="difficultyPanel/EasyButton" to="." method="_on_easy_button_pressed"]
+[connection signal="pressed" from="difficultyPanel/NormalButton" to="." method="_on_normal_button_pressed"]
+[connection signal="pressed" from="difficultyPanel/HardButton" to="." method="_on_hard_button_pressed"]

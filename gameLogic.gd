@@ -28,13 +28,14 @@ var arrow_easy_mode_speed = .5
 var arrow_normal_mode_speed = .8
 var arrow_hard_mode_speed = 1
 var screen_size
-var difficulty = 0
 var num_of_targets = 0
 var num_of_arrows = 0
 var arrow_animation_finished = false
-
+var arrow_difficulty = 0
+var target_difficulty = 0
 
 """Phase 1 OnReady Sprites"""
+@onready var difficulty_panel = $difficultyPanel
 @onready var animation_player = $AnimationPlayer
 @onready var introLabel = $introLabel
 @onready var higherButton = $HigherButton
@@ -92,6 +93,10 @@ var arrow_animation_finished = false
 
 """Main game loop"""
 func _ready(): #Everything that scene when game is loaded
+	difficulty_panel.visible = true
+
+
+func start_game():
 	introLabel.visible = true
 	health_sprite.visible = false
 	health_sprite2.visible = false
@@ -110,7 +115,32 @@ func _ready(): #Everything that scene when game is loaded
 	_play_starting_animations()
 	start_phase_1()
 
+func set_difficulty(difficulty:String):
+	match difficulty:
+		"Easy":
+			difficulty_panel.visible = false
+			target_difficulty = easy_mode_speed
+			arrow_difficulty = arrow_easy_mode_speed
+			start_game()
+		"Normal":
+			difficulty_panel.visible = false
+			target_difficulty = normal_mode_speed
+			arrow_difficulty = arrow_normal_mode_speed
+			start_game()
+		"Hard":
+			difficulty_panel.visible = false
+			target_difficulty = hard_mode_speed
+			arrow_difficulty = arrow_hard_mode_speed
+			start_game()
 
+func _on_easy_button_pressed() -> void:
+	set_difficulty("Easy")
+
+func _on_normal_button_pressed() -> void:
+	set_difficulty("Normal")
+
+func _on_hard_button_pressed() -> void:
+	set_difficulty("Hard")
 
 """On startup functions"""
 func create_deck(): #Creates Deck
@@ -366,7 +396,7 @@ func new_start_phase_2():
 func move_target():
 	num_of_targets_label.visible = true
 	num_of_targets_label.text = "Targets left: " + str(num_of_targets)
-	var speed = hard_mode_speed
+	var speed = target_difficulty
 	target.visible = true
 	timer_sprite.visible = true
 	var max_x = screen_size.x - target.get_size().x
@@ -442,11 +472,11 @@ func loop_arrows(): # Loops arrow falling from top of screen to bottom
 
 func make_arrow_fall(): #Decides which arrow should be falling
 	if randf() > 0.5:
-		right_arrow_falling_anim_player.set_speed_scale(arrow_normal_mode_speed)
+		right_arrow_falling_anim_player.set_speed_scale(arrow_difficulty)
 		right_arrow_falling_anim_player.play("fall")
 		
 	else:
-		left_arrow_falling_anim_player.set_speed_scale(arrow_normal_mode_speed)
+		left_arrow_falling_anim_player.set_speed_scale(arrow_difficulty)
 		left_arrow_falling_anim_player.play("fall")
 
 func _on_right_arrow_falling_anim_player_animation_finished(anim_name: StringName): #Check to see if arrow fell through
