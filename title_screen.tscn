@@ -186,6 +186,14 @@ texture_normal = ExtResource("2_erj4f")
 texture_pressed = ExtResource("3_b7sjp")
 texture_hover = ExtResource("4_58xw6")
 
+[node name="howToPlayButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_erj4f")
+texture_pressed = ExtResource("3_b7sjp")
+texture_hover = ExtResource("4_58xw6")
+
 [node name="quitButton" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -220,10 +228,18 @@ label_settings = SubResource("LabelSettings_rimba")
 
 [node name="Label5" type="Label" parent="."]
 offset_left = -56.0
-offset_top = 112.0
+offset_top = 184.0
 offset_right = 9.0
-offset_bottom = 149.0
+offset_bottom = 221.0
 text = "Quit"
+label_settings = SubResource("LabelSettings_rimba")
+
+[node name="Label6" type="Label" parent="."]
+offset_left = -88.0
+offset_top = 104.0
+offset_right = 38.0
+offset_bottom = 141.0
+text = "Tutorial"
 label_settings = SubResource("LabelSettings_rimba")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
@@ -242,5 +258,6 @@ stream = ExtResource("31_pavca")
 [connection signal="pressed" from="VBoxContainer/freePlayButton" to="." method="_on_free_play_button_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/optionsButton" to="." method="_on_options_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/howToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/quitButton" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/quitButton" to="." method="_on_quit_button_pressed"]
