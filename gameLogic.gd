@@ -89,6 +89,9 @@ var target_difficulty = 0
 @onready var opp_blood_burst2 = $unkBloodBurst2
 @onready var opp_blood_burst3 = $unkBloodBurst3
 
+"""Unk Vars"""
+@onready var unk_sprite = $Unk
+@onready var magic_ball_sprite = $magicBall
 
 
 """Main game loop"""
@@ -97,7 +100,8 @@ func _ready(): #Everything that scene when game is loaded
 
 
 func start_game():
-	introLabel.visible = true
+	#introLabel.visible = true
+	play_unk_intro()
 	health_sprite.visible = false
 	health_sprite2.visible = false
 	health_sprite3.visible = false
@@ -670,3 +674,17 @@ func show_opponent_card_choice(higher: bool):
 		for i in range(200):
 			await get_tree().process_frame
 		$oppChoiceLabel.hide()
+
+
+
+"""Animation section"""
+func play_unk_intro():
+	magic_ball_sprite.play("IdleSpin")
+	for i in range(300):
+		await get_tree().process_frame
+	unk_sprite.play("SideIdleToLookAtPlayer")
+	await unk_sprite.animation_finished
+	magic_ball_sprite.play_backwards("Appearing")
+	unk_sprite.play("TurnTowardsPlayer")
+	await unk_sprite.animation_finished
+	
