@@ -1,4 +1,4 @@
-[gd_scene load_steps=245 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=286 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -51,7 +51,15 @@
 [ext_resource type="Texture2D" uid="uid://cll5fe6at026f" path="res://assets/UnkAssets/UnkTurnTowardsPlayer/sprite_1.png" id="29_0vt0c"]
 [ext_resource type="Texture2D" uid="uid://c4unw5f22tta2" path="res://assets/UnkAssets/UnkTurnTowardsPlayer/sprite_2.png" id="30_n7a28"]
 [ext_resource type="Texture2D" uid="uid://dhvv0qwvvhf7b" path="res://assets/UnkAssets/UnkTurnTowardsPlayer/sprite_3.png" id="31_33sgp"]
+[ext_resource type="AudioStream" uid="uid://cy6nbwf8st385" path="res://Dialogue/UnkDialogue/yourAwake.mp3" id="32_2mw1v"]
 [ext_resource type="Texture2D" uid="uid://bfoy8or2yhel2" path="res://assets/RoomAssets/Table.png" id="32_72rps"]
+[ext_resource type="AudioStream" uid="uid://b42vf3mjekplj" path="res://Dialogue/UnkDialogue/yourAskingAboutMe.mp3" id="33_7m45j"]
+[ext_resource type="AudioStream" uid="uid://bp4ob7fty45gs" path="res://Dialogue/UnkDialogue/youKnowABasement.mp3" id="34_p6use"]
+[ext_resource type="AudioStream" uid="uid://bcmbjwj4i6f6c" path="res://Dialogue/UnkDialogue/fairlySoundProof.mp3" id="35_v7pgy"]
+[ext_resource type="AudioStream" uid="uid://beiglkvvhtt8r" path="res://Dialogue/UnkDialogue/GladYouAsked.mp3" id="36_yhxcr"]
+[ext_resource type="AudioStream" uid="uid://b1kqkx0bpbpov" path="res://Dialogue/UnkDialogue/oneOfUsIsGoingToDieToday.mp3" id="37_kvhxh"]
+[ext_resource type="AudioStream" uid="uid://be2nidkpkigbr" path="res://Dialogue/UnkDialogue/notVeryQuickOnYourFeet.mp3" id="38_e42xj"]
+[ext_resource type="AudioStream" uid="uid://clewqq01cmr6k" path="res://Dialogue/UnkDialogue/letsPlayAudio.mp3" id="39_noe4m"]
 [ext_resource type="Texture2D" uid="uid://bm76iconixkj4" path="res://assets/UnkHealthSprite.png" id="40_ldhbs"]
 [ext_resource type="Texture2D" uid="uid://cdixw8nhhejxq" path="res://assets/UNKBloodBurstTrue/Frame0.png" id="41_48nlg"]
 [ext_resource type="Texture2D" uid="uid://brnifqw1ssh52" path="res://assets/UNKBloodBurstTrue/Frame1.png" id="42_b2og0"]
@@ -184,6 +192,38 @@
 [ext_resource type="Texture2D" uid="uid://srp4ptclf1bb" path="res://assets/UnkAssets/magicBall/MagicBall - 9.png" id="201_ssvck"]
 [ext_resource type="Texture2D" uid="uid://ccgwd13jd0ubx" path="res://assets/UnkAssets/magicBall/MagicBall - 10.png" id="202_vlayj"]
 [ext_resource type="Texture2D" uid="uid://bq2cgrhq6siu5" path="res://assets/UnkAssets/magicBall/MagicBall - 11.png" id="203_s56vb"]
+[ext_resource type="Texture2D" uid="uid://lok5g3cdo6lq" path="res://assets/eyesOpeningAnim/eyesOpening_0023_frame0.png" id="212_ph0ca"]
+[ext_resource type="Texture2D" uid="uid://chq5mykfqhtnl" path="res://assets/eyesOpeningAnim/eyesOpening_0022_frame1.png" id="213_6v1uv"]
+[ext_resource type="Texture2D" uid="uid://crwo5n1saqm5u" path="res://assets/eyesOpeningAnim/eyesOpening_0021_frame2.png" id="214_dlldd"]
+[ext_resource type="Texture2D" uid="uid://d0maetw7ryqis" path="res://assets/eyesOpeningAnim/eyesOpening_0020_frame3.png" id="215_6tfun"]
+[ext_resource type="Texture2D" uid="uid://b7n223r2sdqjb" path="res://assets/eyesOpeningAnim/eyesOpening_0019_frame4.png" id="216_wdbmm"]
+[ext_resource type="Texture2D" uid="uid://c0eut6viygciy" path="res://assets/eyesOpeningAnim/eyesOpening_0018_frame5.png" id="217_ckspp"]
+[ext_resource type="Texture2D" uid="uid://bgdmjyyl6kap8" path="res://assets/eyesOpeningAnim/eyesOpening_0017_frame6.png" id="218_5f0cx"]
+[ext_resource type="Texture2D" uid="uid://caha3axphutoc" path="res://assets/eyesOpeningAnim/eyesOpening_0016_frame7.png" id="219_bb8n0"]
+[ext_resource type="Texture2D" uid="uid://swrt0rh4kse" path="res://assets/eyesOpeningAnim/eyesOpening_0015_frame9.png" id="220_m6iyn"]
+[ext_resource type="Texture2D" uid="uid://cllbqaoj6cmng" path="res://assets/eyesOpeningAnim/eyesOpening_0014_frame10.png" id="221_hpft3"]
+[ext_resource type="Texture2D" uid="uid://bvtvtpit8mp68" path="res://assets/eyesOpeningAnim/eyesOpening_0013_frame11.png" id="222_cjoo1"]
+[ext_resource type="Texture2D" uid="uid://bqnes2k8iuujn" path="res://assets/eyesOpeningAnim/eyesOpening_0012_frame12.png" id="223_pfcwm"]
+[ext_resource type="Texture2D" uid="uid://2g3msrfr2rc4" path="res://assets/eyesOpeningAnim/eyesOpening_0011_frame13.png" id="224_fe1ob"]
+[ext_resource type="Texture2D" uid="uid://fc5fd1gy0108" path="res://assets/eyesOpeningAnim/eyesOpening_0010_frame14.png" id="225_prwad"]
+[ext_resource type="Texture2D" uid="uid://bt8r1udabi2jc" path="res://assets/eyesOpeningAnim/eyesOpening_0009_frame15.png" id="226_hlmf6"]
+[ext_resource type="Texture2D" uid="uid://c2o1h6sjapef" path="res://assets/eyesOpeningAnim/eyesOpening_0008_frame16.png" id="227_lili0"]
+[ext_resource type="Texture2D" uid="uid://c4s8ltqdqpita" path="res://assets/eyesOpeningAnim/eyesOpening_0007_frame17.png" id="228_4313y"]
+[ext_resource type="Texture2D" uid="uid://tsr46hs8rytd" path="res://assets/eyesOpeningAnim/eyesOpening_0006_frame18.png" id="229_aimct"]
+[ext_resource type="Texture2D" uid="uid://382dht4uuvib" path="res://assets/eyesOpeningAnim/eyesOpening_0005_frame19.png" id="230_xxrnt"]
+[ext_resource type="Texture2D" uid="uid://pqvy8wplhdp" path="res://assets/eyesOpeningAnim/eyesOpening_0004_frame20.png" id="231_lj10f"]
+[ext_resource type="Texture2D" uid="uid://cw8shbe0rc2fa" path="res://assets/eyesOpeningAnim/eyesOpening_0003_frame21.png" id="232_2soly"]
+[ext_resource type="Texture2D" uid="uid://dfiax3l3rh6s0" path="res://assets/eyesOpeningAnim/eyesOpening_0002_frame22.png" id="233_y0ufd"]
+[ext_resource type="Texture2D" uid="uid://do0o4ywcljinw" path="res://assets/eyesOpeningAnim/eyesOpening_0001_frame23.png" id="234_ky1u3"]
+[ext_resource type="Texture2D" uid="uid://dkgtfudpxm2tq" path="res://assets/eyesOpeningAnim/eyesOpening_0000_frame23.png" id="235_0ri5d"]
+[ext_resource type="AudioStream" uid="uid://blh3w6r8wriui" path="res://Dialogue/CaydenDialogue/whatDidIDoLastNight.mp3" id="236_bph1t"]
+[ext_resource type="AudioStream" uid="uid://yre7ty4og5ov" path="res://Dialogue/CaydenDialogue/whoAreYou.mp3" id="237_lu868"]
+[ext_resource type="AudioStream" uid="uid://d0hqkclydhcix" path="res://Dialogue/CaydenDialogue/wthYouTalkAboutWAI.mp3" id="238_kqyuf"]
+[ext_resource type="AudioStream" uid="uid://ru5jfauyhhlf" path="res://Dialogue/CaydenDialogue/what.mp3" id="239_rhwlx"]
+[ext_resource type="AudioStream" uid="uid://bwf1bt7m8q7tc" path="res://Dialogue/CaydenDialogue/IKnowWhatABasementIs.mp3" id="240_m6len"]
+[ext_resource type="AudioStream" uid="uid://bhc7cpo2envjq" path="res://Dialogue/CaydenDialogue/aGame.mp3" id="241_p2fni"]
+[ext_resource type="AudioStream" uid="uid://bc66v3iyqgx25" path="res://Dialogue/CaydenDialogue/WhatDoYouMeanDie.mp3" id="242_qn450"]
+[ext_resource type="AudioStream" uid="uid://bq8epn346hpk4" path="res://Dialogue/CaydenDialogue/noIDontGotIt.mp3" id="243_16dja"]
 [ext_resource type="Texture2D" uid="uid://dqmkrfpw417x0" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Unpressed.png" id="322_stw36"]
 [ext_resource type="Texture2D" uid="uid://b48tpr8pys4ys" path="res://ButtonTextures/Pixel Buttons 2 (Rock Buttons)/Blank_Pressed.png" id="323_m0c45"]
 [ext_resource type="FontFile" uid="uid://bj1gutybytlfw" path="res://Fonts/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="324_dks8b"]
@@ -1354,33 +1394,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_rgvq0"]
-resource_name = "throw"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(357, 349), Vector2(368, 258)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0.226697, 0.199865), Vector2(1.37599, 1.22576)]
-}
-
 [sub_resource type="Animation" id="Animation_jvlx5"]
 length = 0.001
 tracks/0/type = "value"
@@ -1408,11 +1421,136 @@ tracks/1/keys = {
 "values": [Vector2(368, 258)]
 }
 
+[sub_resource type="Animation" id="Animation_rgvq0"]
+resource_name = "throw"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(357, 349), Vector2(368, 258)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.226697, 0.199865), Vector2(1.37599, 1.22576)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tflr8"]
 _data = {
 "RESET": SubResource("Animation_jvlx5"),
 "throw": SubResource("Animation_rgvq0")
 }
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qq5sb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("212_ph0ca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("213_6v1uv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("214_dlldd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("215_6tfun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("214_dlldd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("213_6v1uv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("212_ph0ca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("213_6v1uv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("214_dlldd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("215_6tfun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("216_wdbmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("217_ckspp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("218_5f0cx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("219_bb8n0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("220_m6iyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("221_hpft3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("222_cjoo1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("223_pfcwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("224_fe1ob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("225_prwad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("226_hlmf6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("227_lili0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("228_4313y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("229_aimct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("230_xxrnt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("231_lj10f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("232_2soly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("233_y0ufd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("234_ky1u3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("235_0ri5d")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_psmdk")
@@ -1427,6 +1565,30 @@ position = Vector2(538, 326)
 scale = Vector2(0.444824, 0.435484)
 sprite_frames = SubResource("SpriteFrames_kx665")
 animation = &"SideIdleToLookAtPlayer"
+
+[node name="yourAwake" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("32_2mw1v")
+
+[node name="askingAboutMe" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("33_7m45j")
+
+[node name="youKnowABasement" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("34_p6use")
+
+[node name="fairlySoundProof" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("35_v7pgy")
+
+[node name="hereToPlayGame" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("36_yhxcr")
+
+[node name="oneOfUsGoingToDie" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("37_kvhxh")
+
+[node name="notVeryQuickOnFeet" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("38_e42xj")
+
+[node name="letsPlay" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("39_noe4m")
 
 [node name="Table" type="Sprite2D" parent="."]
 position = Vector2(576, 325)
@@ -1791,6 +1953,21 @@ offset_right = 659.0
 offset_bottom = 31.0
 scale = Vector2(1.5, 1.5)
 
+[node name="magicBall" type="AnimatedSprite2D" parent="."]
+position = Vector2(368, 258)
+scale = Vector2(0.226697, 0.199865)
+sprite_frames = SubResource("SpriteFrames_4kvc2")
+animation = &"Appearing"
+
+[node name="magicBallAnimPlayer" type="AnimationPlayer" parent="magicBall"]
+libraries = {
+"": SubResource("AnimationLibrary_tflr8")
+}
+
+[node name="EyesOpeningAnim" type="AnimatedSprite2D" parent="."]
+position = Vector2(568, 328)
+sprite_frames = SubResource("SpriteFrames_qq5sb")
+
 [node name="difficultyPanel" type="Panel" parent="."]
 visible = false
 offset_right = 1152.0
@@ -1826,16 +2003,35 @@ scale = Vector2(0.3, 0.3)
 texture_normal = ExtResource("149_dd1ey")
 texture_hover = ExtResource("150_duplf")
 
-[node name="magicBall" type="AnimatedSprite2D" parent="."]
-position = Vector2(368, 258)
-scale = Vector2(0.226697, 0.199865)
-sprite_frames = SubResource("SpriteFrames_4kvc2")
-animation = &"Appearing"
+[node name="Player" type="Sprite2D" parent="."]
+visible = false
 
-[node name="magicBallAnimPlayer" type="AnimationPlayer" parent="magicBall"]
-libraries = {
-"": SubResource("AnimationLibrary_tflr8")
-}
+[node name="whatDidIDoLastNight" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("236_bph1t")
+
+[node name="whoAreYou" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("237_lu868")
+
+[node name="wthYouTalkAbout" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("238_kqyuf")
+
+[node name="what" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("239_rhwlx")
+
+[node name="IKnowBasement" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("240_m6len")
+
+[node name="aGame" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("241_p2fni")
+
+[node name="whatYouMeanDie" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("242_qn450")
+
+[node name="noIDontGotIt" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("243_16dja")
+
+[node name="backgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("96_4fpgd")
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]

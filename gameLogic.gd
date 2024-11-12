@@ -94,14 +94,41 @@ var target_difficulty = 0
 @onready var magic_ball_sprite = $magicBall
 @onready var magic_ball_anim_player = $magicBall/magicBallAnimPlayer
 
+"""Dialogue variables"""
+@onready var what_did_I_do = $Player/whatDidIDoLastNight
+@onready var who_are_you = $Player/whoAreYou
+@onready var wth_you_talk_about = $Player/wthYouTalkAbout
+@onready var what = $Player/what
+@onready var I_know_basement = $Player/IKnowBasement
+@onready var a_game = $Player/aGame
+@onready var what_you_mean_die = $Player/whatYouMeanDie
+@onready var no_I_dont_got_it = $Player/noIDontGotIt
+
+@onready var your_awake = $Unk/yourAwake
+@onready var asking_about_me = $Unk/askingAboutMe
+@onready var you_know_basement = $Unk/youKnowABasement
+@onready var fairly_sound_proof = $Unk/fairlySoundProof
+@onready var here_to_play_game = $Unk/hereToPlayGame
+@onready var one_is_going_to_die = $Unk/oneOfUsGoingToDie
+@onready var not_very_quick = $Unk/notVeryQuickOnFeet
+@onready var lets_play = $Unk/letsPlay
+
+
+
 """Main game loop"""
 func _ready(): #Everything that scene when game is loaded
 	difficulty_panel.visible = true
+	
 
 
 func start_game():
-	#introLabel.visible = true
+	$backgroundMusic.play()
+	play_opening_dialogue()
+	for i in range(400):
+		await get_tree().process_frame
+	$EyesOpeningAnim.play("default")
 	play_unk_intro()
+	await lets_play.finished
 	health_sprite.visible = false
 	health_sprite2.visible = false
 	health_sprite3.visible = false
@@ -698,3 +725,41 @@ func play_unk_throw():
 	await magic_ball_anim_player.animation_finished
 	_display_health()
 	magic_ball_sprite.play_backwards("Appearing")
+	
+func play_opening_dialogue():
+	what_did_I_do.play()
+	await what_did_I_do.finished
+	your_awake.play()
+	await your_awake.finished
+	who_are_you.play()
+	await who_are_you.finished
+	asking_about_me.play()
+	await asking_about_me.finished
+	wth_you_talk_about.play()
+	await wth_you_talk_about.finished
+	#Put in my basement here
+	#Await here
+	#Put what here
+	#Await here
+	you_know_basement.play()
+	await you_know_basement.finished
+	fairly_sound_proof.play()
+	await fairly_sound_proof.finished
+	I_know_basement.play()
+	await I_know_basement.finished
+	here_to_play_game.play()
+	await here_to_play_game.finished
+	a_game.play()
+	await a_game.finished
+	#Put Yes! A game of life or death here
+	#Await here
+	one_is_going_to_die.play()
+	await one_is_going_to_die.finished
+	what_you_mean_die.play()
+	await what_you_mean_die.finished
+	not_very_quick.play()
+	await not_very_quick.finished
+	no_I_dont_got_it.play()
+	await no_I_dont_got_it.finished
+	lets_play.play()
+	await lets_play.finished
