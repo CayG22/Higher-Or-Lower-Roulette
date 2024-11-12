@@ -92,7 +92,7 @@ var target_difficulty = 0
 """Unk Vars"""
 @onready var unk_sprite = $Unk
 @onready var magic_ball_sprite = $magicBall
-
+@onready var magic_ball_anim_player = $magicBall/magicBallAnimPlayer
 
 """Main game loop"""
 func _ready(): #Everything that scene when game is loaded
@@ -439,6 +439,9 @@ func _on_target_pressed() -> void: #Check if target was clicked
 
 #ARROW SECTION
 func loop_arrows(): # Loops arrow falling from top of screen to bottom
+	magic_ball_sprite.play("Appearing")
+	await magic_ball_sprite.animation_finished
+	magic_ball_sprite.play("IdleSpin")
 	right_arrow_falling.visible = true
 	left_arrow_falling.visible = true
 	right_arrow_static.visible = true
@@ -469,6 +472,10 @@ func loop_arrows(): # Loops arrow falling from top of screen to bottom
 	right_arrow_falling.visible = false
 	right_arrow_static.visible = false
 	left_arrow_static.visible = false
+	play_unk_throw()
+	await magic_ball_sprite.animation_finished
+	magic_ball_sprite.set_frame_and_progress(0,0)
+	magic_ball_anim_player.stop()
 	if _check_player_lives(player_lives):
 		start_phase_1()
 		_switch_to_phase_1()
@@ -487,7 +494,6 @@ func make_arrow_fall(): #Decides which arrow should be falling
 func _on_right_arrow_falling_anim_player_animation_finished(anim_name: StringName): #Check to see if arrow fell through
 	if anim_name == "fall":
 		#num_of_arrows_label.visible = false
-
 		arrow_animation_finished = true
 		right_arrow_falling_anim_player.stop()
 		left_arrow_falling_anim_player.stop()
@@ -496,7 +502,7 @@ func _on_right_arrow_falling_anim_player_animation_finished(anim_name: StringNam
 		right_arrow_static.visible = false
 		left_arrow_static.visible = false
 		player_lives -= 1
-		_display_health()
+
 
 func _on_left_arrow_falling_anim_player_animation_finished(anim_name: StringName): #Check to see if arrow fell through
 	if anim_name == "fall":
@@ -509,7 +515,7 @@ func _on_left_arrow_falling_anim_player_animation_finished(anim_name: StringName
 		right_arrow_static.visible = false
 		left_arrow_static.visible = false
 		player_lives -= 1
-		_display_health()
+
 
 func _input(event): #Gets the input from the user
 	if event.is_action_pressed("ui_right") and is_in_target_area("right"):
@@ -629,7 +635,6 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 	opp_health_animation.play("pulse")	
 
 
-
 """Dynamic functions"""
 func show_opponent_choice(choice: bool): #Shows whoever UNK chose to shoot
 	var message1 = "Hmmmm..."
@@ -687,4 +692,9 @@ func play_unk_intro():
 	magic_ball_sprite.play_backwards("Appearing")
 	unk_sprite.play("TurnTowardsPlayer")
 	await unk_sprite.animation_finished
-	
+
+func play_unk_throw():
+	magic_ball_anim_player.play("throw")
+	await magic_ball_anim_player.animation_finished
+	_display_health()
+	magic_ball_sprite.play_backwards("Appearing")

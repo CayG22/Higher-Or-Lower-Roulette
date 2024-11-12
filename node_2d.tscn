@@ -1,4 +1,4 @@
-[gd_scene load_steps=242 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=245 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -230,10 +230,31 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("10_hq58e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pgski")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_qg7om")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6sy0m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tdfpg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nvp4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hhrcp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b2dww")
 }],
-"loop": true,
+"loop": false,
 "name": &"Blink",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -253,7 +274,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"RaiseHands",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -294,7 +315,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"SideIdleToLookAtPlayer",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -311,7 +332,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"TurnTowardsPlayer",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_87mex"]
@@ -1283,10 +1304,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("191_xdorb")
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": false,
 "name": &"Appearing",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1330,6 +1354,66 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_rgvq0"]
+resource_name = "throw"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(357, 349), Vector2(368, 258)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.226697, 0.199865), Vector2(1.37599, 1.22576)]
+}
+
+[sub_resource type="Animation" id="Animation_jvlx5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.226697, 0.199865)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(368, 258)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tflr8"]
+_data = {
+"RESET": SubResource("Animation_jvlx5"),
+"throw": SubResource("Animation_rgvq0")
+}
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_psmdk")
 
@@ -1342,7 +1426,7 @@ texture = ExtResource("2_v76ec")
 position = Vector2(538, 326)
 scale = Vector2(0.444824, 0.435484)
 sprite_frames = SubResource("SpriteFrames_kx665")
-animation = &"TurnTowardsPlayer"
+animation = &"SideIdleToLookAtPlayer"
 
 [node name="Table" type="Sprite2D" parent="."]
 position = Vector2(576, 325)
@@ -1371,10 +1455,10 @@ scale = Vector2(0.5, 0.5)
 
 [node name="HigherButton" type="TextureButton" parent="."]
 visible = false
-offset_left = 64.0
-offset_top = 264.0
-offset_right = 2112.0
-offset_bottom = 1288.0
+offset_left = 9.0
+offset_top = 538.0
+offset_right = 2057.0
+offset_bottom = 1562.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("322_stw36")
 texture_pressed = ExtResource("323_m0c45")
@@ -1393,10 +1477,10 @@ vertical_alignment = 1
 
 [node name="lowerButton" type="TextureButton" parent="."]
 visible = false
-offset_left = 880.0
-offset_top = 264.0
-offset_right = 2960.0
-offset_bottom = 1288.0
+offset_left = 937.0
+offset_top = 540.0
+offset_right = 3017.0
+offset_bottom = 1564.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("322_stw36")
 texture_pressed = ExtResource("323_m0c45")
@@ -1743,10 +1827,15 @@ texture_normal = ExtResource("149_dd1ey")
 texture_hover = ExtResource("150_duplf")
 
 [node name="magicBall" type="AnimatedSprite2D" parent="."]
-position = Vector2(357, 353)
-scale = Vector2(0.159644, 0.143481)
+position = Vector2(368, 258)
+scale = Vector2(0.226697, 0.199865)
 sprite_frames = SubResource("SpriteFrames_4kvc2")
 animation = &"Appearing"
+
+[node name="magicBallAnimPlayer" type="AnimationPlayer" parent="magicBall"]
+libraries = {
+"": SubResource("AnimationLibrary_tflr8")
+}
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]
