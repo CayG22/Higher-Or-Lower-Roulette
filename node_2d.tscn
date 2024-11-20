@@ -1,4 +1,4 @@
-[gd_scene load_steps=286 format=3 uid="uid://dhgi1j6np7vl1"]
+[gd_scene load_steps=293 format=3 uid="uid://dhgi1j6np7vl1"]
 
 [ext_resource type="Script" path="res://gameLogic.gd" id="1_psmdk"]
 [ext_resource type="Texture2D" uid="uid://rfvrdgmn6h57" path="res://OpponentFrames/frame_00_delay-0.2s.png" id="2_m1nrs"]
@@ -53,15 +53,22 @@
 [ext_resource type="Texture2D" uid="uid://dhvv0qwvvhf7b" path="res://assets/UnkAssets/UnkTurnTowardsPlayer/sprite_3.png" id="31_33sgp"]
 [ext_resource type="AudioStream" uid="uid://cy6nbwf8st385" path="res://Dialogue/UnkDialogue/yourAwake.mp3" id="32_2mw1v"]
 [ext_resource type="Texture2D" uid="uid://bfoy8or2yhel2" path="res://assets/RoomAssets/Table.png" id="32_72rps"]
+[ext_resource type="AudioStream" uid="uid://vpgo5hpq8fj5" path="res://Dialogue/UnkDialogue/IThoughtYoudBeDiffernet.mp3" id="32_xlhjw"]
 [ext_resource type="AudioStream" uid="uid://b42vf3mjekplj" path="res://Dialogue/UnkDialogue/yourAskingAboutMe.mp3" id="33_7m45j"]
+[ext_resource type="AudioStream" uid="uid://fg7ipk4bjl20" path="res://Dialogue/UnkDialogue/oopsAreYouOkay.mp3" id="33_h01q8"]
 [ext_resource type="AudioStream" uid="uid://bp4ob7fty45gs" path="res://Dialogue/UnkDialogue/youKnowABasement.mp3" id="34_p6use"]
+[ext_resource type="AudioStream" uid="uid://c2r2u80b6bd4c" path="res://Dialogue/UnkDialogue/thatHasntHappenInALongTime.mp3" id="34_wnna1"]
+[ext_resource type="AudioStream" uid="uid://cslrgn8yy8ukw" path="res://Dialogue/UnkDialogue/wellThatsNotHowThisWasSupposedToGo.mp3" id="35_rf08y"]
 [ext_resource type="AudioStream" uid="uid://bcmbjwj4i6f6c" path="res://Dialogue/UnkDialogue/fairlySoundProof.mp3" id="35_v7pgy"]
+[ext_resource type="AudioStream" uid="uid://c01jyvoo7my64" path="res://Dialogue/UnkDialogue/wowImSuprisedYouHitMe.mp3" id="36_31p31"]
 [ext_resource type="AudioStream" uid="uid://beiglkvvhtt8r" path="res://Dialogue/UnkDialogue/GladYouAsked.mp3" id="36_yhxcr"]
 [ext_resource type="AudioStream" uid="uid://b1kqkx0bpbpov" path="res://Dialogue/UnkDialogue/oneOfUsIsGoingToDieToday.mp3" id="37_kvhxh"]
 [ext_resource type="AudioStream" uid="uid://be2nidkpkigbr" path="res://Dialogue/UnkDialogue/notVeryQuickOnYourFeet.mp3" id="38_e42xj"]
 [ext_resource type="AudioStream" uid="uid://clewqq01cmr6k" path="res://Dialogue/UnkDialogue/letsPlayAudio.mp3" id="39_noe4m"]
+[ext_resource type="AudioStream" uid="uid://bfmxqpa82knxu" path="res://Dialogue/UnkDialogue/yourInMyHouse.mp3" id="40_k2jcd"]
 [ext_resource type="Texture2D" uid="uid://bm76iconixkj4" path="res://assets/UnkHealthSprite.png" id="40_ldhbs"]
 [ext_resource type="Texture2D" uid="uid://cdixw8nhhejxq" path="res://assets/UNKBloodBurstTrue/Frame0.png" id="41_48nlg"]
+[ext_resource type="AudioStream" uid="uid://thdqgjylyaoh" path="res://Dialogue/UnkDialogue/AGameOfLifeOrDeath.MP3" id="41_p724d"]
 [ext_resource type="Texture2D" uid="uid://brnifqw1ssh52" path="res://assets/UNKBloodBurstTrue/Frame1.png" id="42_b2og0"]
 [ext_resource type="Texture2D" uid="uid://dkb1cbvlm0jdj" path="res://assets/UNKBloodBurstTrue/Frame2.png" id="43_3tdyx"]
 [ext_resource type="Texture2D" uid="uid://bdikqytcbodmp" path="res://assets/UNKBloodBurstTrue/Frame3.png" id="44_v5qly"]
@@ -1566,6 +1573,21 @@ scale = Vector2(0.444824, 0.435484)
 sprite_frames = SubResource("SpriteFrames_kx665")
 animation = &"SideIdleToLookAtPlayer"
 
+[node name="IThoughtYoudBeDiffernet" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("32_xlhjw")
+
+[node name="OopsAreYouOkay" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("33_h01q8")
+
+[node name="ThatHasntHappenInALongTime" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("34_wnna1")
+
+[node name="WellThatsNotHowThisWasSupposedToGo" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("35_rf08y")
+
+[node name="WowImSuprisedYouHitMe" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("36_31p31")
+
 [node name="yourAwake" type="AudioStreamPlayer" parent="Unk"]
 stream = ExtResource("32_2mw1v")
 
@@ -1589,6 +1611,12 @@ stream = ExtResource("38_e42xj")
 
 [node name="letsPlay" type="AudioStreamPlayer" parent="Unk"]
 stream = ExtResource("39_noe4m")
+
+[node name="YourInMyHouse" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("40_k2jcd")
+
+[node name="AGameOfLifeOrDeath" type="AudioStreamPlayer" parent="Unk"]
+stream = ExtResource("41_p724d")
 
 [node name="Table" type="Sprite2D" parent="."]
 position = Vector2(576, 325)
@@ -2032,6 +2060,14 @@ stream = ExtResource("243_16dja")
 
 [node name="backgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("96_4fpgd")
+
+[node name="UnkDialogueLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="PlayerDialogueLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="pressed" from="HigherButton" to="." method="_on_higher_button_pressed"]
 [connection signal="pressed" from="lowerButton" to="." method="_on_lower_button_pressed"]

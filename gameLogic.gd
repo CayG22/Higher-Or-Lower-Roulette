@@ -95,6 +95,7 @@ var target_difficulty = 0
 @onready var magic_ball_anim_player = $magicBall/magicBallAnimPlayer
 
 """Dialogue variables"""
+@onready var player_dialogue = $PlayerDialogueLabel
 @onready var what_did_I_do = $Player/whatDidIDoLastNight
 @onready var who_are_you = $Player/whoAreYou
 @onready var wth_you_talk_about = $Player/wthYouTalkAbout
@@ -104,15 +105,22 @@ var target_difficulty = 0
 @onready var what_you_mean_die = $Player/whatYouMeanDie
 @onready var no_I_dont_got_it = $Player/noIDontGotIt
 
+@onready var unk_dialogue = $UnkDialogueLabel
 @onready var your_awake = $Unk/yourAwake
 @onready var asking_about_me = $Unk/askingAboutMe
+@onready var your_in_my_house = $Unk/YourInMyHouse
 @onready var you_know_basement = $Unk/youKnowABasement
 @onready var fairly_sound_proof = $Unk/fairlySoundProof
 @onready var here_to_play_game = $Unk/hereToPlayGame
+@onready var a_game_of_life_or_death = $Unk/AGameOfLifeOrDeath
 @onready var one_is_going_to_die = $Unk/oneOfUsGoingToDie
 @onready var not_very_quick = $Unk/notVeryQuickOnFeet
 @onready var lets_play = $Unk/letsPlay
-
+@onready var i_thought_you_be_diff = $Unk/IThoughtYoudBeDiffernet
+@onready var oops_are_you_okay = $Unk/OopsAreYouOkay
+@onready var that_has_not_happened = $Unk/ThatHasntHappenInALongTime
+@onready var well_thats_not_how = $Unk/WellThatsNotHowThisWasSupposedToGo
+@onready var suprised_you_hit_me = $Unk/WowImSuprisedYouHitMe
 
 
 """Main game loop"""
@@ -124,7 +132,7 @@ func _ready(): #Everything that scene when game is loaded
 func start_game():
 	$backgroundMusic.play()
 	play_opening_dialogue()
-	for i in range(400):
+	for i in range(1000):
 		await get_tree().process_frame
 	$EyesOpeningAnim.play("default")
 	play_unk_intro()
@@ -195,11 +203,7 @@ func _game_over():# Handle game over logic
 	lowerButton.set_visible(false)
 	player_card.set_visible(false)
 	opponent_card.set_visible(false)
-	# Play the opponent's game-over animation
-	opponent_sprite.play("game_over_animation")
-	sound_effect.play()
-	# Wait for the animation to finish before showing the game over message
-	await get_tree().create_timer(1.7).timeout
+
 	get_tree().change_scene_to_file("res://title_screen.tscn")
 
 
@@ -262,8 +266,9 @@ func new_player_guess(is_higher: bool): # Handle player's guess (higher or lower
 			await get_tree().process_frame
 		$checkMark.hide()
 		$GreenRect.hide()
-		new_switch_to_phase_2()
 		was_correct = true
+		new_switch_to_phase_2()
+		
 	else:
 		print("You were wrong")
 		$incorrectSound.play()
@@ -273,8 +278,9 @@ func new_player_guess(is_higher: bool): # Handle player's guess (higher or lower
 			await get_tree().process_frame
 		$xMark.hide()
 		$RedRect.hide()
-		new_switch_to_phase_2()
 		was_correct = false
+		new_switch_to_phase_2()
+		
 
 func unk_card_decision() -> bool: #Returns true for higher, false for lower
 	if opponent_card > 7: #Greater than 7, greater chance to choose higher
@@ -309,8 +315,9 @@ func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was 
 			await get_tree().process_frame
 		$checkMark.hide()
 		$GreenRect.hide()
-		new_switch_to_phase_2()
 		was_correct = true
+		new_switch_to_phase_2()
+		
 	else:
 		print("UNK was wrong")
 		$incorrectSound.play()
@@ -320,8 +327,9 @@ func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was 
 			await get_tree().process_frame
 		$xMark.hide()
 		$RedRect.hide()
-		new_switch_to_phase_2()
 		was_correct = false
+		new_switch_to_phase_2()
+		
 
 
 #ANIMATION SECTION
@@ -376,10 +384,7 @@ func new_switch_to_phase_2():
 		
 		higherButton.visible = false
 		lowerButton.visible = false
-		switch_label.visible = true
-		await wait_timer.timeout
-		
-		switch_label.visible = false
+
 
 		new_start_phase_2()
 	else: #Not the first switch
@@ -443,11 +448,19 @@ func move_target():
 		num_of_targets_label.visible = false
 		opp_lives -= 1
 		_display_health()
-		
+
 		if _check_opp_lives(opp_lives):
+			if opp_lives == 2:
+				suprised_you_hit_me.play()
+				await suprised_you_hit_me.finished
+				that_has_not_happened.play()
+				await that_has_not_happened.finished
+				
 			start_phase_1()
 			_switch_to_phase_1()
 		else:
+			well_thats_not_how.play()
+			await well_thats_not_how.finished
 			_game_over()
 
 func _on_animation_finished(): #Check to see if player missed click
@@ -499,14 +512,22 @@ func loop_arrows(): # Loops arrow falling from top of screen to bottom
 	right_arrow_falling.visible = false
 	right_arrow_static.visible = false
 	left_arrow_static.visible = false
-	play_unk_throw()
-	await magic_ball_sprite.animation_finished
+	print(num_of_arrows)
+	if num_of_arrows !=0:
+		play_unk_throw()
+		await magic_ball_sprite.animation_finished
 	magic_ball_sprite.set_frame_and_progress(0,0)
 	magic_ball_anim_player.stop()
 	if _check_player_lives(player_lives):
+		if player_lives == 2:
+			oops_are_you_okay.play()
+			await oops_are_you_okay.finished
+		
 		start_phase_1()
 		_switch_to_phase_1()
 	else:
+		i_thought_you_be_diff.play()
+		await i_thought_you_be_diff.finished
 		_game_over()
 
 func make_arrow_fall(): #Decides which arrow should be falling
@@ -617,8 +638,7 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 		health_sprite2.visible = true
 		health_sprite3.visible = true
 	elif player_lives == 2:
-		life_loss_sound.play()
-		#blood_burst3.play("default")
+		#life_loss_sound.play()
 		health_sprite.visible = true
 		health_sprite2.visible = true
 		health_sprite3.visible = false
@@ -629,18 +649,20 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 		health_sprite2.visible = false
 		health_sprite3.visible = false
 	else:
-		life_loss_sound.play()
+		#life_loss_sound.play()
 		#blood_burst1.play("default")
 		health_sprite.visible = false
 		health_sprite2.visible = false
 		health_sprite3.visible = false
+
+
 	
 	if opp_lives == 3:
 		opp_health_sprite1.visible = true
 		opp_health_sprite2.visible = true
 		opp_health_sprite3.visible = true
 	elif opp_lives == 2:
-		life_loss_sound.play()
+		#life_loss_sound.play()
 		#opp_blood_burst1.play("default")
 		opp_health_sprite1.visible = false
 		opp_health_sprite2.visible = true
@@ -652,11 +674,13 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 		opp_health_sprite2.visible = false
 		opp_health_sprite3.visible = true
 	else:
-		life_loss_sound.play()
+		#life_loss_sound.play()
 		#opp_blood_burst3.play("default")
 		opp_health_sprite1.visible = false
 		opp_health_sprite2.visible = false
 		opp_health_sprite3.visible = false
+
+
 	
 	health_animation.play("pulse")
 	opp_health_animation.play("pulse")	
@@ -712,7 +736,7 @@ func show_opponent_card_choice(higher: bool):
 """Animation section"""
 func play_unk_intro():
 	magic_ball_sprite.play("IdleSpin")
-	for i in range(300):
+	for i in range(1500):
 		await get_tree().process_frame
 	unk_sprite.play("SideIdleToLookAtPlayer")
 	await unk_sprite.animation_finished
@@ -737,10 +761,10 @@ func play_opening_dialogue():
 	await asking_about_me.finished
 	wth_you_talk_about.play()
 	await wth_you_talk_about.finished
-	#Put in my basement here
-	#Await here
-	#Put what here
-	#Await here
+	your_in_my_house.play()
+	await your_in_my_house.finished
+	what.play()
+	await what.finished
 	you_know_basement.play()
 	await you_know_basement.finished
 	fairly_sound_proof.play()
@@ -751,8 +775,8 @@ func play_opening_dialogue():
 	await here_to_play_game.finished
 	a_game.play()
 	await a_game.finished
-	#Put Yes! A game of life or death here
-	#Await here
+	a_game_of_life_or_death.play()
+	await a_game_of_life_or_death.finished
 	one_is_going_to_die.play()
 	await one_is_going_to_die.finished
 	what_you_mean_die.play()
