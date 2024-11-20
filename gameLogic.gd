@@ -1,60 +1,46 @@
 extends Node2D
 
 """Phase 1 variables"""
-var deck = []
-var suits = ["hearts", "diamonds", "clubs", "spades"]
-var card_sprites = {}  # This will hold the card images as textures
-var player_card = 0
-var player_card_suit = ""
-var opponent_card = 0
-var opponent_card_suit = ""
-var is_player_turn = true
-var game_over = false
-
-var player_lives = 3
-var opp_lives = 3
-
-var label_display_time = 3.0
-var round_time = 120.0
-
+var deck = [] #LIST: deck of cards
+var suits = ["hearts", "diamonds", "clubs", "spades"] #LIST: suits for cards
+var card_sprites = {}  #DICTIONARY: holds the card images as textures
+var player_card = 0 #INT: player card
+var player_card_suit = "" #Don't use
+var opponent_card = 0 #INT: UNK Card
+var opponent_card_suit = "" #Don't use
+var is_player_turn = true #BOOL: player turn or not
+var game_over = false #BOOL: game over or not
+var player_lives = 3 #INT: player lives
+var opp_lives = 3 #INT: UNK'S lives
 
 """Phase 2 variables"""
-var first_switch = true
-var was_correct = true
-var easy_mode_speed = .7
-var normal_mode_speed = 1.1
-var hard_mode_speed = 1.7
-var arrow_easy_mode_speed = .5
-var arrow_normal_mode_speed = .8
-var arrow_hard_mode_speed = 1
-var screen_size
-var num_of_targets = 0
-var num_of_arrows = 0
-var arrow_animation_finished = false
-var arrow_difficulty = 0
-var target_difficulty = 0
+var first_switch = true #BOOL: first switch in round or not
+var was_correct = true #BOOL: guesser was correct or not
+var easy_mode_speed = .7 #DOUBLE: easy speed
+var normal_mode_speed = 1.1 #DOUBLE: normal speed
+var hard_mode_speed = 1.7 #DOUBLE: hard speed
+var arrow_easy_mode_speed = .5 #DOUBLE: arrow easy speed
+var arrow_normal_mode_speed = .8 #DOUBLE: arrow normal speed
+var arrow_hard_mode_speed = 1 #DOUBLE: arrow hard speed
+var screen_size #LIST: size of current screen(Resolution)
+var num_of_targets = 0 #INT: number of targets for phase 2
+var num_of_arrows = 0 #INT: number of arrows for phase 2
+var arrow_animation_finished = false #BOOL: did player miss arrow or not
+var arrow_difficulty = 0 #INT: how fast arrow will fall
+var target_difficulty = 0 #INT: how fast target will dissapear
 
 """Phase 1 OnReady Sprites"""
 @onready var difficulty_panel = $difficultyPanel
 @onready var animation_player = $AnimationPlayer
-@onready var introLabel = $introLabel
 @onready var higherButton = $HigherButton
 @onready var lowerButton = $lowerButton
 @onready var opponent_card_animation = $opponent_card_player
-@onready var round_timer = $round_timer
-@onready var time_label = $timerLabel
 @onready var deck_of_cards = $DeckOfCards
 @onready var player_card_sprite = $PlayerCardSprite
 @onready var opponent_card_sprite = $op_card_sprite
 @onready var deck_cloud_of_smoke = $deckCloudOfSmoke
 @onready var opp_card_cloud_of_smoke = $opp_card_cloud_of_smoke
 @onready var player_card_cloud_of_smoke = $playerCardCloudOfSmoke
-
-#Labels for phase 2
-@onready var switch_label = $switchLabel
-@onready var switch_label_2 = $switchLabel2
-@onready var unk_hm_label = $oppWaitLabel
-
 
 """Phase 2 on ready Sprites"""
 @onready var target = $Target
@@ -129,32 +115,25 @@ func _ready(): #Everything that scene when game is loaded
 	
 
 
-func start_game():
+func start_game(): #Starts game
 	$backgroundMusic.play()
 	play_opening_dialogue()
-	for i in range(1000):
+	for i in range(500): #Initial wait to let first part of dialogue play(since it takes a while)
 		await get_tree().process_frame
 	$EyesOpeningAnim.play("default")
 	play_unk_intro()
 	await lets_play.finished
-	health_sprite.visible = false
-	health_sprite2.visible = false
-	health_sprite3.visible = false
-	opp_health_sprite1.visible = false
-	opp_health_sprite2.visible = false
-	opp_health_sprite3.visible = false
-	timer_sprite.connect("animation_finished", _on_animation_finished)
-	screen_size = get_viewport_rect().size
+	timer_sprite.connect("animation_finished", _on_animation_finished) #Wait for UNK opening anim to finish
+	screen_size = get_viewport_rect().size 
+	
 	load_card_art()
 	create_deck()  # Initialize deck with proper rank and suit combinations
-	deck.shuffle()
-	await get_tree().create_timer(label_display_time).timeout
-	introLabel.visible = false
+	deck.shuffle() #Shuffle deck at start of each game
 	_display_health()
 	_play_starting_animations()
 	start_phase_1()
 
-func set_difficulty(difficulty:String):
+func set_difficulty(difficulty:String): #Sets diff. Diff. is speed of arrow and target
 	match difficulty:
 		"Easy":
 			difficulty_panel.visible = false
@@ -172,6 +151,7 @@ func set_difficulty(difficulty:String):
 			arrow_difficulty = arrow_hard_mode_speed
 			start_game()
 
+#Helper functions to set difficulty
 func _on_easy_button_pressed() -> void:
 	set_difficulty("Easy")
 
@@ -210,33 +190,35 @@ func _game_over():# Handle game over logic
 
 """Phase 1 Functions"""
 func start_phase_1(): # Start a new round by drawing player and opponent cards
+	#Check to see if game is over
 	if game_over:
 		return
-
+	
+	#Draw cards for both players
 	var player_card_info = draw_card()
 	var opponent_card_info = draw_card()
 
 	# Keep drawing until the card numbers (ranks) are different
 	while player_card_info[0] == opponent_card_info[0]:
 		opponent_card_info = draw_card()
-
+	
+	#Assignment of cards
 	player_card = player_card_info[0]
 	player_card_suit = player_card_info[1]
 	opponent_card = opponent_card_info[0]
 	opponent_card_suit = opponent_card_info[1]
 
-	print("Your card is: " + str(player_card) + " of " + player_card_suit)
-	print("Opponent's card is: " + str(opponent_card) + " of " + opponent_card_suit)
+	#print("Your card is: " + str(player_card) + " of " + player_card_suit)
+	#print("Opponent's card is: " + str(opponent_card) + " of " + opponent_card_suit)
 
 	# Update card visual
 	display_card_art()
 
 func _switch_to_phase_1(): #Switches 'state' to phase 1
-	#Switch turn
-	is_player_turn = !is_player_turn
+	is_player_turn = !is_player_turn #Switch turn
 	phase_1_sprite_changes() #Changes visibility of sprites
 	
-	if is_player_turn:
+	if is_player_turn: #Check to see if its the player turn
 		higherButton.visible = true
 		lowerButton.visible = true
 	else:
@@ -257,8 +239,9 @@ func display_card_art(): # Display the card art for both player and opponent
 	get_node("OpponentCardSprite").texture = opponent_card_texture
 
 func new_player_guess(is_higher: bool): # Handle player's guess (higher or lower)
+	#If player is right
 	if (is_higher and player_card > opponent_card) or (not is_higher and player_card < opponent_card):
-		print("You guessed correctly!")
+		#print("You guessed correctly!")
 		$correctSound.play()
 		$checkMark.show()
 		$GreenRect.show()
@@ -269,8 +252,8 @@ func new_player_guess(is_higher: bool): # Handle player's guess (higher or lower
 		was_correct = true
 		new_switch_to_phase_2()
 		
-	else:
-		print("You were wrong")
+	else: #If player is wrong
+		#print("You were wrong")
 		$incorrectSound.play()
 		$xMark.show()
 		$RedRect.show()
@@ -280,7 +263,6 @@ func new_player_guess(is_higher: bool): # Handle player's guess (higher or lower
 		$RedRect.hide()
 		was_correct = false
 		new_switch_to_phase_2()
-		
 
 func unk_card_decision() -> bool: #Returns true for higher, false for lower
 	if opponent_card > 7: #Greater than 7, greater chance to choose higher
@@ -300,12 +282,15 @@ func unk_card_decision() -> bool: #Returns true for higher, false for lower
 			return false
 
 func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was wrong
+	#Get UNK Choice
 	var choice = unk_card_decision()
-
+	
+	#Show what UNK Chose
 	show_opponent_card_choice(choice)
 	for i in range(400): #Wait for 4 seconds
 		await get_tree().process_frame
 	
+	#Check to see if UNK was right or wrong
 	if (choice and opponent_card > player_card) or (not choice and opponent_card < player_card):
 		print("UNK was right")
 		$correctSound.play()
@@ -329,11 +314,11 @@ func unk_card_choice_outcome(): #Returns true if UNK was right, false if he was 
 		$RedRect.hide()
 		was_correct = false
 		new_switch_to_phase_2()
-		
+
 
 
 #ANIMATION SECTION
-func _play_starting_animations(): #TODO fix this, make it more clean
+func _play_starting_animations(): #Plays round start anims. Just for both set of cards
 	opponent_card_animation.play("slide_over")
 	await opponent_card_animation.animation_finished
 	opponent_card_animation.play("slide_up")
@@ -341,15 +326,16 @@ func _play_starting_animations(): #TODO fix this, make it more clean
 	await opponent_card_animation.animation_finished
 	opponent_card_animation.play("hover")
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void: #TODO fix this as well
+func _on_animation_player_animation_finished(anim_name: StringName) -> void: #Really just a check for unk opening anim
 	higherButton.set_visible(true)
 	lowerButton.set_visible(true)
 
-func phase_1_sprite_changes(): #Sprite changes when changing back to phase 1
-	#Make Phase 1 sprites visible
+func phase_1_sprite_changes(): #Sprite changes when changing back to phase 1, makes card assets visible again
+
 	deck_of_cards.visible = true
 	opponent_card_sprite.visible = true
 	player_card_sprite.visible = true
+
 
 
 #BUTTON SECTION
@@ -364,7 +350,8 @@ func _on_lower_button_pressed(): #Handles LowerButton
 """Phase 2 Functions"""
 func new_switch_to_phase_2():
 	var poof_noise = get_node("poofSoundEffect")
-	num_of_targets = floor(randf_range(5,10))
+	
+	num_of_targets = floor(randf_range(5,10)) #Sets the num of targetes between 5 and 10
 
 	if first_switch: #if havent switched this round
 		var wait_timer = get_tree().create_timer(3.0)
@@ -407,41 +394,47 @@ func new_switch_to_phase_2():
 		new_start_phase_2()
 		
 		
-	first_switch = false	
+	first_switch = false #Set to false to get into else clause
 
-func new_start_phase_2():
+func new_start_phase_2(): #Checks if current guesser was right or wrong, starts phase 2
 	if is_player_turn: #If it is the player's turn
 		if was_correct: #Correct
 			print("(CORRECT) Player must press targets")
 			new_play_player_phase_2_animations() #Play player animations
-			move_target()
+			move_target() #Start target
 		else: #Incorrect
 			print("(INCORRECT)Play must dodge ")
-			loop_arrows()
+			loop_arrows() #Start arrows
 	else: #UNKS turn
 		if was_correct: #Correct
 			print("(CORRECT) Player must dodge")
-			loop_arrows()
+			loop_arrows() #Start arrows
 		else: #Incorrect
 			print("(INCORRECT) Player must press targets")
 			new_play_player_phase_2_animations() #Play Player animations
-			move_target()
+			move_target() #Start target
+
 
 
 #TARGET SECTION
-func move_target():
+func move_target(): #Moves targets in random positions around screen, check to see if there are any targets left
 	num_of_targets_label.visible = true
 	num_of_targets_label.text = "Targets left: " + str(num_of_targets)
-	var speed = target_difficulty
+	
+	var speed = target_difficulty #Set diff.
+	
 	target.visible = true
 	timer_sprite.visible = true
-	var max_x = screen_size.x - target.get_size().x
-	var max_y = screen_size.x - target.get_size().y
-	var new_position = Vector2(randf() * (screen_size.x - max_x), randf() * (screen_size.y - max_y))
+	
+	var max_x = screen_size.x - target.get_size().x #Get x size of screen
+	var max_y = screen_size.x - target.get_size().y #Get y size of screen
+	var new_position = Vector2(randf() * (screen_size.x - max_x), randf() * (screen_size.y - max_y)) #Calc. random position
 	target.position = new_position
+	
 	timer_sprite.set_speed_scale(speed)
 	timer_sprite.play("default")
-	if num_of_targets == 0:
+	
+	if num_of_targets == 0: #If no targets left, unk loses a life
 		timer_sprite.stop()
 		target.visible = false
 		timer_sprite.visible = false
@@ -449,7 +442,7 @@ func move_target():
 		opp_lives -= 1
 		_display_health()
 
-		if _check_opp_lives(opp_lives):
+		if _check_opp_lives(opp_lives): #If unk has any lives left, if not game over
 			if opp_lives == 2:
 				suprised_you_hit_me.play()
 				await suprised_you_hit_me.finished
@@ -463,7 +456,7 @@ func move_target():
 			await well_thats_not_how.finished
 			_game_over()
 
-func _on_animation_finished(): #Check to see if player missed click
+func _on_animation_finished(): #Check to see if player missed a target by seeing if target anim played all the way through
 	target.visible = false
 	timer_sprite.visible = false
 	num_of_targets_label.visible = false
@@ -487,42 +480,41 @@ func loop_arrows(): # Loops arrow falling from top of screen to bottom
 	right_arrow_static.visible = true
 	left_arrow_static.visible = true
 	arrow_animation_finished = false
-	num_of_arrows = floor(randf_range(5, 10))
-	var num_of_arrows_holder = num_of_arrows
-	#num_of_arrows_label.visible = true
-	#num_of_arrows_label.text = "Arrows Left: " + str(num_of_arrows)
-	for i in range(20):
+	
+	num_of_arrows = floor(randf_range(5, 10)) #Cal. how many arrows there are
+	
+	for i in range(20): #For i in max number of arrows
 		make_arrow_fall()
 		
 	# Introduce delay between each arrow's fall
 		for x in range(150):
 			await get_tree().process_frame
 		
-		if arrow_animation_finished:
+		if arrow_animation_finished: #If anim finished leave loop(Player missed arrow)
 			break
-		elif num_of_arrows <= 0:
+		elif num_of_arrows <= 0: #If no arrows left leave loop(Player succeeded)
 			break
-
-	# Stop animations and switch phase after all arrows have fallen or player misses
-
-	#num_of_arrows_label.visible = false
+	
+	#No matter the outcome we stop arrows and make them invisible
 	right_arrow_falling_anim_player.stop()
 	left_arrow_falling_anim_player.stop()
 	left_arrow_falling.visible = false
 	right_arrow_falling.visible = false
 	right_arrow_static.visible = false
 	left_arrow_static.visible = false
-	print(num_of_arrows)
-	if num_of_arrows !=0:
+
+	if num_of_arrows !=0: #If arrows left, play the throwing animation, player loses a life
 		play_unk_throw()
 		await magic_ball_sprite.animation_finished
-	magic_ball_sprite.set_frame_and_progress(0,0)
+	
+	#Reset magic ball asset
+	magic_ball_sprite.set_frame_and_progress(0,0) 
 	magic_ball_anim_player.stop()
-	if _check_player_lives(player_lives):
+	
+	if _check_player_lives(player_lives): #Check to see if player has any lives left
 		if player_lives == 2:
 			oops_are_you_okay.play()
 			await oops_are_you_okay.finished
-		
 		start_phase_1()
 		_switch_to_phase_1()
 	else:
@@ -551,7 +543,6 @@ func _on_right_arrow_falling_anim_player_animation_finished(anim_name: StringNam
 		left_arrow_static.visible = false
 		player_lives -= 1
 
-
 func _on_left_arrow_falling_anim_player_animation_finished(anim_name: StringName): #Check to see if arrow fell through
 	if anim_name == "fall":
 		#num_of_arrows_label.visible = false
@@ -565,7 +556,7 @@ func _on_left_arrow_falling_anim_player_animation_finished(anim_name: StringName
 		player_lives -= 1
 
 
-func _input(event): #Gets the input from the user
+func _input(event): #Gets the arrow input from user
 	if event.is_action_pressed("ui_right") and is_in_target_area("right"):
 		$rightArrowStatic/arrowGet.play()
 		num_of_arrows -= 1
@@ -588,7 +579,8 @@ func is_in_target_area(direction: String) -> bool: #Check to see if the arrow th
 		return abs(arrow_y - target_y) < 60
 
 func handle_hit(direction: String): #Handles hits
-	if direction == 'right':
+	#If handle hit gets called, duplicate arrow and play the fade anim. This allows for the next arrow to begin falling still.
+	if direction == 'right': 
 		var right_arrow_dup = right_arrow_falling.duplicate()
 		add_child(right_arrow_dup)
 		var dup_anim_player = right_arrow_dup.get_node("rightArrowFallingAnimPlayer")
@@ -686,30 +678,9 @@ func _display_health(): #Extremly ugly function, don't care enough cause it work
 	opp_health_animation.play("pulse")	
 
 
-"""Dynamic functions"""
-func show_opponent_choice(choice: bool): #Shows whoever UNK chose to shoot
-	var message1 = "Hmmmm..."
-	$oppWaitLabel.text = message1
-	$oppWaitLabel.show()
-	for i in range(200):
-		await get_tree().process_frame
-	$oppWaitLabel.hide()
-	if choice:
-		var message = "I choose you!"
-		$oppChoiceLabel.text = message
-		$oppChoiceLabel.show()
-		for i in range(200):
-			await get_tree().process_frame
-		$oppChoiceLabel.hide()
-	else:
-		var message = "I choose me!"
-		$oppChoiceLabel.text = message
-		$oppChoiceLabel.show()
-		for i in range(200):
-			await get_tree().process_frame
-		$oppChoiceLabel.hide()
 
-func show_opponent_card_choice(higher: bool):
+"""Dynamic functions"""
+func show_opponent_card_choice(higher: bool): #Shows which choice UNK made for his guess
 	var message1 = "Hmmmm..."
 	$oppWaitLabel.text = message1
 	$oppWaitLabel.show()
@@ -734,9 +705,9 @@ func show_opponent_card_choice(higher: bool):
 
 
 """Animation section"""
-func play_unk_intro():
+func play_unk_intro(): #Plays unk opening animations
 	magic_ball_sprite.play("IdleSpin")
-	for i in range(1500):
+	for i in range(300):
 		await get_tree().process_frame
 	unk_sprite.play("SideIdleToLookAtPlayer")
 	await unk_sprite.animation_finished
@@ -744,13 +715,13 @@ func play_unk_intro():
 	unk_sprite.play("TurnTowardsPlayer")
 	await unk_sprite.animation_finished
 
-func play_unk_throw():
+func play_unk_throw(): #Plays UNK ball throwing anim
 	magic_ball_anim_player.play("throw")
 	await magic_ball_anim_player.animation_finished
 	_display_health()
 	magic_ball_sprite.play_backwards("Appearing")
-	
-func play_opening_dialogue():
+
+func play_opening_dialogue(): #Plays entire opening sequence dialogue
 	what_did_I_do.play()
 	await what_did_I_do.finished
 	your_awake.play()
