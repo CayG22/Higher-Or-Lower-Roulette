@@ -252,6 +252,21 @@ stream = ExtResource("30_sbqs5")
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("31_pavca")
 
+[node name="ArrowDemo" type="Button" parent="."]
+offset_left = -554.0
+offset_top = -189.0
+offset_right = -448.0
+offset_bottom = -158.0
+text = "Arrow Demo"
+
+[node name="TargetDemo" type="Button" parent="."]
+offset_left = -557.0
+offset_top = -142.0
+offset_right = -449.0
+offset_bottom = -111.0
+text = "Target Demo
+"
+
 [connection signal="mouse_entered" from="VBoxContainer/playButton" to="." method="_on_play_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/freePlayButton" to="." method="_on_free_play_button_mouse_entered"]
@@ -261,3 +276,5 @@ stream = ExtResource("31_pavca")
 [connection signal="pressed" from="VBoxContainer/howToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/quitButton" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/quitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="ArrowDemo" to="." method="_on_arrow_demo_pressed"]
+[connection signal="pressed" from="TargetDemo" to="." method="_on_target_demo_pressed"]

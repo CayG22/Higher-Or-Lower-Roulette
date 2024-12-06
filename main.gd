@@ -48,3 +48,11 @@ func _on_options_button_mouse_entered() -> void:
 
 func _on_quit_button_mouse_entered() -> void:
 	$HoverSound.play()
+
+
+func _on_target_demo_pressed() -> void:
+	get_tree().change_scene_to_file("res://TargetDemo.tscn")
+
+
+func _on_arrow_demo_pressed() -> void:
+	get_tree().change_scene_to_file("res://ArrowDemo.tscn")
